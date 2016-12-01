@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--导航栏1-->
+<group android:checkableBehavior="single">
+    <item android:title="@string/drawer_menu_item_learn">
+        <menu>
+            <item
+                android:id="@+id/nav_checkin"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/drawer_menu_item_learn_checkin" />
+            <item
+                android:id="@+id/nav_ppt"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/drawer_menu_item_learn_ppt" />
+            <item
+                android:id="@+id/nav_homework"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/drawer_menu_item_learn_homework" />
+        </menu>
+    </item>
+</group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/drawer_menu_item_communicate">
+            <menu>
+                <item
+                    android:id="@+id/nav_contact"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="@string/drawer_menu_item_communicate_contact" />
+                <item
+                    android:id="@+id/nav_leave_message"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/drawer_menu_item_communicate_leave_message" />
+            </menu>
+        </item>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/drawer_menu_item_communicate">
+            <menu>
+                <item
+                    android:id="@+id/nav_contact"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="@string/drawer_menu_item_communicate_contact" />
+                <item
+                    android:id="@+id/nav_leave_message"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/drawer_menu_item_communicate_leave_message" />
+            </menu>
+        </item>
+
+    </group>
+
+
+
+
+</menu>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Teachent</string>
+    <string name="title_activity_teachent_login">登录</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录或注册</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="error_invalid_email">Email无效</string>
+    <string name="error_invalid_password">密码长度太短</string>
+    <string name="error_incorrect_password">密码不正确</string>
+    <string name="error_field_required">不能为空</string>
+    <string name="permission_rationale">"需要获取联系人权限"</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_qrcode">扫一扫</string>
+
+    <string name="title_activity_teachent_main">老师带你飞</string>
+
+    <string name="drawer_menu_item_learn">学习中心</string>
+    <string name="drawer_menu_item_learn_checkin">考勤</string>
+    <string name="drawer_menu_item_learn_ppt">课件</string>
+    <string name="drawer_menu_item_learn_homework">作业</string>
+
+    <string name="drawer_menu_item_communicate">交流中心</string>
+    <string name="drawer_menu_item_communicate_contact">联系老师</string>
+    <string name="drawer_menu_item_communicate_leave_message">留言板</string>
+
+</resources>
