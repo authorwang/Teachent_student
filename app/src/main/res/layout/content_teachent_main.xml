@@ -13,12 +13,5 @@
     tools:context=".activity.TeachentMainActivity"
     tools:showIn="@layout/app_bar_teachent_main">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@mipmap/splash_back"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:scaleType="centerCrop"
-        android:id="@+id/imageView2" />
+
 </FrameLayout>
