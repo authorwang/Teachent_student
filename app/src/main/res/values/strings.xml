@@ -16,17 +16,24 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!--ActionBar-->
     <string name="action_qrcode">扫一扫</string>
 
+    <!--Title-->
     <string name="title_activity_teachent_main">老师带你飞</string>
 
+    <!--导航栏1-->
     <string name="drawer_menu_item_learn">学习中心</string>
     <string name="drawer_menu_item_learn_checkin">考勤</string>
     <string name="drawer_menu_item_learn_ppt">课件</string>
     <string name="drawer_menu_item_learn_homework">作业</string>
-
+    <!--导航栏2-->
     <string name="drawer_menu_item_communicate">交流中心</string>
     <string name="drawer_menu_item_communicate_contact">联系老师</string>
     <string name="drawer_menu_item_communicate_leave_message">留言板</string>
-
+    <!--导航栏3-->
+    <string name="drawer_menu_item_settings">设置中心</string>
+    <string name="drawer_menu_item_settings_information">我的信息</string>
+    <string name="drawer_menu_item_settings_about">关于我们</string>
+    <string name="drawer_menu_item_settings_logout">退出当前账号</string>
 </resources>

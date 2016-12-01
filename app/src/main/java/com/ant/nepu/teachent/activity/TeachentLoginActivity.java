@@ -316,12 +316,7 @@ public class TeachentLoginActivity extends AppCompatActivity implements LoaderCa
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+
 
             /**
              * 此处代码替换为用户登录代码

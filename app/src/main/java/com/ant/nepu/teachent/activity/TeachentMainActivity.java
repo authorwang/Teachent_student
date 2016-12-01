@@ -10,12 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 
 /**
  * App主界面
- * 管Fragment
+ * 管理Fragment
  */
 public class TeachentMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,6 +67,11 @@ public class TeachentMainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * ActionBar OnClick事件
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -78,10 +84,18 @@ public class TeachentMainActivity extends AppCompatActivity
             /**
              * 调用二维码扫描功能
              */
+            goQRCode();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 二维码扫描
+     */
+    private void goQRCode() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.action_qrcode),Toast.LENGTH_SHORT).show();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -89,11 +103,92 @@ public class TeachentMainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        switch(id){
+            case R.id.nav_checkin://考勤
+                goCheckIn();
+                break;
+            case R.id.nav_ppt:
+                goPPT();
+                break;
+            case R.id.nav_homework:
+                goHomework();
+                break;
+            case R.id.nav_contact:
+                goContact();
+                break;
+            case R.id.nav_leave_message:
+                goLeaveMessage();
+                break;
+            case R.id.nav_information:
+                goInformation();
+                break;
+            case R.id.nav_about:
+                goAbout();
+                break;
+            case R.id.nav_logout:
+                goLogout();
+                break;
+        }
 
-       
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * 我的信息
+     */
+    private void goInformation() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_settings_information),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 退出当前账号
+     */
+    private void goLogout() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_settings_logout),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 关于
+     */
+    private void goAbout() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_settings_about),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 留言板
+     */
+    private void goLeaveMessage() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_communicate_leave_message),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 联系教师
+     */
+    private void goContact() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_communicate_contact),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 作业
+     */
+    private void goHomework() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_homework),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 课件
+     */
+    private void goPPT() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_ppt),Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 考勤
+     */
+    private void goCheckIn() {
+        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_checkin),Toast.LENGTH_SHORT).show();
     }
 }

@@ -37,16 +37,20 @@
     </group>
 
     <group android:checkableBehavior="single">
-        <item android:title="@string/drawer_menu_item_communicate">
+        <item android:title="@string/drawer_menu_item_settings">
             <menu>
                 <item
-                    android:id="@+id/nav_contact"
+                    android:id="@+id/nav_information"
                     android:icon="@drawable/ic_menu_camera"
-                    android:title="@string/drawer_menu_item_communicate_contact" />
+                    android:title="@string/drawer_menu_item_settings_information" />
                 <item
-                    android:id="@+id/nav_leave_message"
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="@string/drawer_menu_item_settings_about" />
+                <item
+                    android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_menu_gallery"
-                    android:title="@string/drawer_menu_item_communicate_leave_message" />
+                    android:title="@string/drawer_menu_item_settings_logout" />
             </menu>
         </item>
 
