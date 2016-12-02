@@ -2,10 +2,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     tools:context="com.ant.nepu.teachent.fragment.CheckInFragment">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_frag_avatar"
+                style="@style/fragment_check_in_avatar_size"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/tv_frag_greeting"
+                style="@style/fragment_check_in_tv_greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fragment_check_in_tv_greeting_margin"
+                android:layout_marginTop="@dimen/fragment_check_in_tv_greeting_margin"
+                android:text="@string/fragment_check_in_greeting_morning" />
+
+            <TextView
+                android:id="@+id/tv_frag_nickname"
+                style="@style/fragment_check_in_tv_greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fragment_check_in_tv_greeting_margin"
+                android:layout_marginTop="@dimen/fragment_check_in_tv_greeting_margin"
+                android:text="学生昵称！" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/fragment_check_in_chart_times"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 </FrameLayout>

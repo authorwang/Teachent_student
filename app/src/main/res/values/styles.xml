@@ -17,5 +17,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
+    <!--考勤Fragment-->
+    <style name="fragment_check_in_tv_greeting">
+        <item name="android:textSize">20dp</item>
+    </style>
+    <style name="fragment_check_in_avatar_size">
+        <item name="android:width">40dp</item>
+        <item name="android:height">40dp</item>
+    </style>
 </resources>

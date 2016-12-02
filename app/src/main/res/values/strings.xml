@@ -37,6 +37,9 @@
     <string name="drawer_menu_item_settings_about">关于我们</string>
     <string name="drawer_menu_item_settings_logout">退出当前账号</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+   <!--考勤Fragement-->
+    <string name="fragment_check_in_greeting_morning">上午好,</string>
+    <string name="fragment_check_in_greeting_afternoon">下午好,</string>
+    <string name="fragment_check_in_greeting_evening">晚上好,</string>
+
 </resources>

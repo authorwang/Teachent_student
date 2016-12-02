@@ -2,6 +2,7 @@ package com.ant.nepu.teachent.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,19 @@ public class CheckInFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //设置图表样式
+        setPieChart();
+    }
+
+    /**
+     *
+     */
+    private void setPieChart() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

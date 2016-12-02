@@ -7,6 +7,7 @@ buildscript {
             //这里是 LeanCloud 的包仓库
             url "http://mvn.leancloud.cn/nexus/content/repositories/public"
         }
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.2'
@@ -22,6 +23,10 @@ allprojects {
         //这里是 LeanCloud 的包仓库
         maven {
             url "http://mvn.leancloud.cn/nexus/content/repositories/public"
+        }
+        maven {
+            //MPAndroidChart包仓库
+            url "https://jitpack.io"
         }
     }
 }
