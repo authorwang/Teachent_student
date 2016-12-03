@@ -41,5 +41,8 @@
     <string name="fragment_check_in_greeting_morning">上午好,</string>
     <string name="fragment_check_in_greeting_afternoon">下午好,</string>
     <string name="fragment_check_in_greeting_evening">晚上好,</string>
+    <string name="fragment_check_in_chart_yes_check">正常出勤</string>
+    <string name="fragment_check_in_chart_no_check">未出勤</string>
+    <string name="fragment_check_in_chart_center_text">学生考勤</string>
 
 </resources>

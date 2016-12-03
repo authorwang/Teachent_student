@@ -43,18 +43,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/fragment_check_in_chart_times"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-        </LinearLayout>
+
     </LinearLayout>
 
 

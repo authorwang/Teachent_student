@@ -120,25 +120,25 @@ public class TeachentMainActivity extends AppCompatActivity
             case R.id.nav_checkin://考勤
                 goCheckIn();
                 break;
-            case R.id.nav_ppt:
+            case R.id.nav_ppt://课件
                 goPPT();
                 break;
-            case R.id.nav_homework:
+            case R.id.nav_homework://作业
                 goHomework();
                 break;
-            case R.id.nav_contact:
+            case R.id.nav_contact://联系人
                 goContact();
                 break;
-            case R.id.nav_leave_message:
+            case R.id.nav_leave_message://留言板
                 goLeaveMessage();
                 break;
-            case R.id.nav_information:
+            case R.id.nav_information://我的信息
                 goInformation();
                 break;
-            case R.id.nav_about:
+            case R.id.nav_about://关于我们
                 goAbout();
                 break;
-            case R.id.nav_logout:
+            case R.id.nav_logout://退出当前账号
                 goLogout();
                 break;
         }
