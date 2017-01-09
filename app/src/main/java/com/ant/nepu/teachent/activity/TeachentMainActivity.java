@@ -1,12 +1,7 @@
 package com.ant.nepu.teachent.activity;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,11 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
-import com.ant.nepu.teachent.fragment.CheckInFragment;
-
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.List;
+import com.ant.nepu.teachent.fragment.HomeFragment;
 
 /**
  * App主界面
@@ -202,8 +193,8 @@ public class TeachentMainActivity extends AppCompatActivity
      * 考勤
      */
     private void goCheckIn() {
-        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_checkin),Toast.LENGTH_SHORT).show();
-        CheckInFragment fragment = new CheckInFragment();
+        //Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_checkin),Toast.LENGTH_SHORT).show();
+        HomeFragment fragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_teachent_main,fragment).commit();
     }
 }

@@ -1,16 +1,10 @@
 package com.ant.nepu.teachent.fragment;
 
 
-import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +22,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-
 /**
  * 考勤Fragment
  */
-public class CheckInFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     /**
      *    UI组件
@@ -52,7 +44,7 @@ public class CheckInFragment extends Fragment {
     private int totalCheck;//总数
     private int isChecked;//正常出勤数
 
-    public CheckInFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -60,7 +52,7 @@ public class CheckInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         mView=inflater.inflate(R.layout.fragment_check_in, container, false);
+         mView=inflater.inflate(R.layout.fragment_home, container, false);
         mChart = (PieChart) mView.findViewById(R.id.fragment_check_in_chart_times);
 
         /**
@@ -93,6 +85,10 @@ public class CheckInFragment extends Fragment {
         /*
         载入考勤数据
          */
+        //测试数据：
+        CommonData.stateBCheckIn = 100;
+        CommonData.stateACheckIn = 25;
+
         totalCheck = CommonData.stateBCheckIn;//总共需考勤数
         isChecked = CommonData.stateACheckIn;//实际已考勤次数
 
@@ -171,8 +167,8 @@ public class CheckInFragment extends Fragment {
 //            entries.add(new PieEntry((float) ((Math.random() * mult) + mult / 5), mChecks[i % mChecks.length]));
 //        }
 
-        entries.add(0,new PieEntry((float)((float)isChecked/totalCheck),getString(R.string.fragment_check_in_chart_yes_check)));
-        entries.add(1,new PieEntry((float)((float)(totalCheck-isChecked)/totalCheck),getString(R.string.fragment_check_in_chart_no_check)));
+        entries.add(0,new PieEntry(((float)isChecked/totalCheck),getString(R.string.fragment_check_in_chart_yes_check)));
+        entries.add(1,new PieEntry(((float)(totalCheck-isChecked)/totalCheck),getString(R.string.fragment_check_in_chart_no_check)));
 
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setSliceSpace(3f);
