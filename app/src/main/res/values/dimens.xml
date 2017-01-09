@@ -10,4 +10,8 @@
     <!--考勤Fragment-->
     <dimen name="fragment_check_in_tv_greeting_margin">10dp</dimen>
 
+    <!--课件Fragment-->
+    <dimen name="listview_ppt_tv_text_margin">20dp</dimen>
+
+
 </resources>

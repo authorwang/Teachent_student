@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.fragment.HomeFragment;
+import com.ant.nepu.teachent.fragment.PPTFragment;
 
 /**
  * App主界面
@@ -186,7 +187,8 @@ public class TeachentMainActivity extends AppCompatActivity
      * 课件
      */
     private void goPPT() {
-        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_ppt),Toast.LENGTH_SHORT).show();
+        PPTFragment fragment = new PPTFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
     }
 
     /**
@@ -195,6 +197,6 @@ public class TeachentMainActivity extends AppCompatActivity
     private void goCheckIn() {
         //Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_checkin),Toast.LENGTH_SHORT).show();
         HomeFragment fragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.content_teachent_main,fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
     }
 }

@@ -2,12 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
     tools:context="com.ant.nepu.teachent.fragment.PPTFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_frag_ppt_title"
+            android:text="@string/fragment_ppt_title"
+            android:textAlignment="center"
+            style="@style/fragment_ppt_title"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:fastScrollEnabled="true"
+            android:id="@+id/lv_frag_ppt"
+            android:layout_below="@+id/tv_frag_ppt_title" />
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>
