@@ -2,19 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
+
     tools:context="com.ant.nepu.teachent.fragment.PPTFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_frag_ppt_title"
-            android:text="@string/fragment_ppt_title"
-            android:textAlignment="center"
-            style="@style/fragment_ppt_title"/>
+            android:padding="@dimen/fab_margin"
+            android:id="@+id/rl_frag_ppt_title">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_frag_ppt_title"
+                android:text="@string/fragment_ppt_title"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                style="@style/fragment_ppt_title"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/frag_ppt_btn_dl_selector"
+                style="@style/fragment_ppt_button"
+                android:id="@+id/btn_frag_ppt_download"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/fragment_ppt_button_text"
+                />
+        </RelativeLayout>
+
 
         <ListView
             android:layout_width="match_parent"
@@ -22,7 +40,7 @@
             android:layout_alignParentStart="true"
             android:fastScrollEnabled="true"
             android:id="@+id/lv_frag_ppt"
-            android:layout_below="@+id/tv_frag_ppt_title" />
+            android:layout_below="@+id/rl_frag_ppt_title" />
 
 
     </RelativeLayout>

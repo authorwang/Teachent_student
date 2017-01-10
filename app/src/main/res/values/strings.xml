@@ -47,6 +47,11 @@
 
     <!--课件Fragment-->
     <string name="fragment_ppt_title">课件列表</string>
+    <string name="fragment_ppt_button_text">下载</string>
+    <string name="fragment_ppt_message_list_null">请至少选择一个课件！</string>
+    <drawable name="frag_ppt_button_normal">#3366CC</drawable>
+    <drawable name="frag_ppt_button_pressed">#003399</drawable>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
