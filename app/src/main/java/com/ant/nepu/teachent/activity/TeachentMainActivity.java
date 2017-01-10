@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.fragment.HomeFragment;
+import com.ant.nepu.teachent.fragment.HomeworkFragment;
 import com.ant.nepu.teachent.fragment.PPTFragment;
 
 /**
@@ -180,7 +181,9 @@ public class TeachentMainActivity extends AppCompatActivity
      * 作业
      */
     private void goHomework() {
-        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_homework),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_homework),Toast.LENGTH_SHORT).show();
+        HomeworkFragment fragment = new HomeworkFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
     }
 
     /**

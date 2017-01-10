@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -60,6 +59,9 @@ public class PPTFragment extends Fragment {
                 HashMap<Integer,Boolean> isSelected = PPTListAdapter.isSelected;
                 for(int i=0;i<pptListAdapter.getCount();i++){
                     if(isSelected.get(i)){
+                        /**
+                         * 实现对选中课件的下载
+                         */
                         String text = (String) pptListAdapter.getItem(i);
                         result+="\n"+text;
                     }
