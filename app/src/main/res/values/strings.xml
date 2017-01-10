@@ -52,6 +52,8 @@
     <drawable name="frag_ppt_button_normal">#3366CC</drawable>
     <drawable name="frag_ppt_button_pressed">#003399</drawable>
 
+    <!--作业Fragment-->
+    <string name="fragment_homework_title">作业列表</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
