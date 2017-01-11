@@ -24,4 +24,6 @@ public class CommonData {
     public static  int stateBCheckIn;
     //课件名称列表
     public static String[] pptNameList;
+    //作业名称列表
+    public static String[] homeworkList;
 }
