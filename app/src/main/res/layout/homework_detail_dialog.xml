@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fab_margin"
+            android:id="@+id/rl_frag_homework_title">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_frag_ppt_title"
+                android:text="@string/fragment_homework_detail_title"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                style="@style/fragment_ppt_title"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/frag_ppt_btn_dl_selector"
+                style="@style/fragment_ppt_button"
+                android:id="@+id/btn_frag_ppt_download"
+                android:text="@string/fragment_homework_detail_close_button_text"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_fragment_homework_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_frag_homework_title"/>
+
+
+
+
+    </RelativeLayout>
+</LinearLayout>

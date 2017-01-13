@@ -10,23 +10,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
-import com.ant.nepu.teachent.common.CommonData;
-import com.ant.nepu.teachent.entity.Homework;
-
-import java.util.List;
 
 /**
- * 作业RecyclerView自定义适配器
+ * 作业详情RecyclerView自定义适配器
  * Created by wang1 on 2017/1/11.
  */
 
-public class HomeworkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private Context context;
     private String[] homeworkList;
     private LayoutInflater layoutInflater;
 
-    public HomeworkListAdapter(Context context, String[] homeworkList) {
+    public HomeworkDetailListAdapter(Context context, String[] homeworkList) {
         this.context = context;
         this.homeworkList = homeworkList;
         layoutInflater = LayoutInflater.from(context);
@@ -34,7 +30,7 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.homework_list_item,parent,false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.homework_detail_list_item,parent,false));
     }
 
     @Override
