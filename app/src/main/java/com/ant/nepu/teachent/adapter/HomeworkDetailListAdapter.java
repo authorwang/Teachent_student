@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
+import com.ant.nepu.teachent.common.CommonData;
 
 /**
  * 作业详情RecyclerView自定义适配器
@@ -48,6 +50,7 @@ public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView
      */
     private void bindItem(TextView tv, ImageView iv, int position) {
         tv.setText(homeworkDetailList[position]);
+        iv.setImageResource(R.mipmap.app_icon);
     }
 
 
@@ -59,11 +62,14 @@ public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv;
         ImageView iv;
+        Button btn;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv = (TextView) itemView.findViewById(R.id.tv_frag_homework_detail_title);
             iv = (ImageView) itemView.findViewById(R.id.iv_frag_homework_detail_capture);
+            btn = (Button) itemView.findViewById(R.id.btn_frag_homework_detail_button_select);
+
             itemView.findViewById(R.id.cv_frag_homework_detail).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -77,7 +83,7 @@ public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView
          * @param position
          */
         private void showHomeworkDetails(int position) {
-            Toast.makeText(context,"一个题组"+homeworkDetailList[position],Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"题组 from position"+ CommonData.homeworkPosition+homeworkDetailList[position],Toast.LENGTH_SHORT).show();
         }
     }
 }

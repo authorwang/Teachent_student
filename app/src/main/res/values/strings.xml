@@ -56,7 +56,7 @@
     <string name="fragment_homework_title">作业列表</string>
     <string name="fragment_homework_detail_title">作业详情</string>
     <string name="fragment_homework_detail_button_text">选取</string>
-    <string name="fragment_homework_detail_close_button_text">关闭</string>
+    <string name="fragment_homework_detail_close_button_text">返回</string>
 
 
 </resources>

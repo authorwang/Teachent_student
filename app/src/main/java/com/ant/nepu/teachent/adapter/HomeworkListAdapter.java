@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.entity.Homework;
+import com.ant.nepu.teachent.fragment.HomeworkDetailFragment;
+import com.ant.nepu.teachent.fragment.HomeworkFragment;
 
 import java.util.List;
 
@@ -25,10 +27,12 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private String[] homeworkList;
     private LayoutInflater layoutInflater;
+    private HomeworkFragment fragment;
 
-    public HomeworkListAdapter(Context context, String[] homeworkList) {
+    public HomeworkListAdapter(Context context, String[] homeworkList,HomeworkFragment fragment) {
         this.context = context;
         this.homeworkList = homeworkList;
+        this.fragment = fragment;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -82,6 +86,8 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
          */
         private void showHomeworkDetails(int position) {
             Toast.makeText(context,"显示作业详情"+homeworkList[position],Toast.LENGTH_SHORT).show();
+            CommonData.homeworkPosition =position;
+            fragment.getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new HomeworkDetailFragment()).commit();
         }
     }
 }

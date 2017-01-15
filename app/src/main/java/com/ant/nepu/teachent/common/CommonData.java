@@ -26,4 +26,8 @@ public class CommonData {
     public static String[] pptNameList;
     //作业名称列表
     public static String[] homeworkList;
+    //作业详情题组列表
+    public static String[] homeworkDetailList;
+    //作业项目对应
+    public static int homeworkPosition;
 }

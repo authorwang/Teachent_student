@@ -68,7 +68,7 @@ public class HomeworkFragment extends Fragment {
                 "高等数学 习题十二",
         };
         CommonData.homeworkList = homeworkList;
-        homeworkListAdapter = new HomeworkListAdapter(mView.getContext(),CommonData.homeworkList);
+        homeworkListAdapter = new HomeworkListAdapter(mView.getContext(),CommonData.homeworkList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
         recyclerView.setAdapter(homeworkListAdapter);
     }
