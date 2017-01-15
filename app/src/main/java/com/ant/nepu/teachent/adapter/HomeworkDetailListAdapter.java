@@ -19,12 +19,12 @@ import com.ant.nepu.teachent.R;
 public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private Context context;
-    private String[] homeworkList;
+    private String[] homeworkDetailList;
     private LayoutInflater layoutInflater;
 
-    public HomeworkDetailListAdapter(Context context, String[] homeworkList) {
+    public HomeworkDetailListAdapter(Context context, String[] homeworkDetailList) {
         this.context = context;
-        this.homeworkList = homeworkList;
+        this.homeworkDetailList = homeworkDetailList;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -47,13 +47,13 @@ public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView
      * @param iv
      */
     private void bindItem(TextView tv, ImageView iv, int position) {
-        tv.setText(homeworkList[position]);
+        tv.setText(homeworkDetailList[position]);
     }
 
 
     @Override
     public int getItemCount() {
-        return homeworkList.length;
+        return homeworkDetailList.length;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -62,9 +62,9 @@ public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.tv_frag_homework_text);
-            iv = (ImageView) itemView.findViewById(R.id.iv_frag_homework_icon);
-            itemView.findViewById(R.id.cv_frag_homework).setOnClickListener(new View.OnClickListener() {
+            tv = (TextView) itemView.findViewById(R.id.tv_frag_homework_detail_title);
+            iv = (ImageView) itemView.findViewById(R.id.iv_frag_homework_detail_capture);
+            itemView.findViewById(R.id.cv_frag_homework_detail).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showHomeworkDetails(getPosition());
@@ -77,7 +77,7 @@ public class HomeworkDetailListAdapter extends RecyclerView.Adapter<RecyclerView
          * @param position
          */
         private void showHomeworkDetails(int position) {
-            Toast.makeText(context,homeworkList[position],Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"一个题组"+homeworkDetailList[position],Toast.LENGTH_SHORT).show();
         }
     }
 }

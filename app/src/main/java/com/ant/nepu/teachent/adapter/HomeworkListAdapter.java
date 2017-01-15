@@ -81,7 +81,7 @@ public class HomeworkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
          * @param position
          */
         private void showHomeworkDetails(int position) {
-            Toast.makeText(context,homeworkList[position],Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"显示作业详情"+homeworkList[position],Toast.LENGTH_SHORT).show();
         }
     }
 }
