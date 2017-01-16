@@ -9,15 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.PPTListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
-
 import java.util.HashMap;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 课件Fragment
  */
 public class PPTFragment extends Fragment {
     /**

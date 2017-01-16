@@ -8,7 +8,6 @@ import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.github.mikephil.charting.animation.Easing;
@@ -19,11 +18,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
 import java.util.ArrayList;
 
 /**
- * 考勤Fragment
+ * 主页（考勤）Fragment
  */
 public class HomeFragment extends Fragment {
 

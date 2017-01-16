@@ -6,15 +6,15 @@
         <menu>
             <item
                 android:id="@+id/nav_checkin"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@mipmap/icon_checkin"
                 android:title="@string/drawer_menu_item_learn_checkin" />
             <item
                 android:id="@+id/nav_ppt"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@mipmap/icon_ppt"
                 android:title="@string/drawer_menu_item_learn_ppt" />
             <item
                 android:id="@+id/nav_homework"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@mipmap/icon_homework"
                 android:title="@string/drawer_menu_item_learn_homework" />
         </menu>
     </item>
@@ -25,11 +25,11 @@
             <menu>
                 <item
                     android:id="@+id/nav_contact"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@mipmap/icon_contact"
                     android:title="@string/drawer_menu_item_communicate_contact" />
                 <item
                     android:id="@+id/nav_leave_message"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@mipmap/icon_leave_message"
                     android:title="@string/drawer_menu_item_communicate_leave_message" />
             </menu>
         </item>
@@ -41,15 +41,15 @@
             <menu>
                 <item
                     android:id="@+id/nav_information"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@mipmap/icon_info"
                     android:title="@string/drawer_menu_item_settings_information" />
                 <item
                     android:id="@+id/nav_about"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@mipmap/icon_about"
                     android:title="@string/drawer_menu_item_settings_about" />
                 <item
                     android:id="@+id/nav_logout"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@mipmap/icon_logout"
                     android:title="@string/drawer_menu_item_settings_logout" />
             </menu>
         </item>

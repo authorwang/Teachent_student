@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.HomeworkDetailListAdapter;
-import com.ant.nepu.teachent.adapter.HomeworkListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 作业详情Fragment
  */
 public class HomeworkDetailFragment extends Fragment {
     /**
