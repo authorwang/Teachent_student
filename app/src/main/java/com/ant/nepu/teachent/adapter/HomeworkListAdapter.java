@@ -11,11 +11,8 @@ import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
-import com.ant.nepu.teachent.entity.Homework;
 import com.ant.nepu.teachent.fragment.HomeworkDetailFragment;
 import com.ant.nepu.teachent.fragment.HomeworkFragment;
-
-import java.util.List;
 
 /**
  * 作业RecyclerView自定义适配器
