@@ -14,4 +14,6 @@ public class  Constants {
     public static String frag_contact_cv_name_title = "老师姓名：";
     public static String frag_contact_cv_tel_title = "联系电话：";
 
+    public static String frag_leave_message_cv_text_mid_word = "说：";
+
 }

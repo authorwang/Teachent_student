@@ -61,5 +61,10 @@
     <!--联系老师Fragment-->
     <string name="fragment_contact_title">联系老师</string>
 
+    <!--留言板Fragment-->
+    <string name="fragment_leave_message_title">留言板</string>
 
+    <!--留言板详情Fragment-->
+    <string name="fragment_leave_message_detail_title">留言详情</string>
+    <string name="fragment_leave_message_detail_close_button_text">返回</string>
 </resources>
