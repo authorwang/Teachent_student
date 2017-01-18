@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
+import com.ant.nepu.teachent.fragment.ContactFragment;
 import com.ant.nepu.teachent.fragment.HomeFragment;
 import com.ant.nepu.teachent.fragment.HomeworkFragment;
 import com.ant.nepu.teachent.fragment.PPTFragment;
@@ -174,8 +175,11 @@ public class TeachentMainActivity extends AppCompatActivity
      * 联系教师
      */
     private void goContact() {
-        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_communicate_contact),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_communicate_contact),Toast.LENGTH_SHORT).show();
+        ContactFragment fragment = new ContactFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
     }
+
 
     /**
      * 作业

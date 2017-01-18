@@ -8,14 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.HomeworkListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 作业Fragment
  */
 public class HomeworkFragment extends Fragment {
     /**
