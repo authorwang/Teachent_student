@@ -38,4 +38,13 @@ public class CommonData {
     //联系老师电话列表
     public static String[] contactTelList;
 
+    //留言板姓名列表
+    public static String[] leaveMessageNameList;
+    //留言板简略文本列表
+    public static String[] leaveMessageSimpleTextList;
+    //留言板详情文本列表
+    public static String[] leaveMessageDetailTextList;
+    //留言板项目对应位置
+    public static int leaveMessagePosition;
+
 }
