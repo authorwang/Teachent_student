@@ -8,11 +8,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_fragment_homework_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_frag_homework_title"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/fab_margin"
-            android:id="@+id/rl_frag_homework_title">
+            android:id="@+id/rl_frag_homework_title"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,14 +43,6 @@
 
 
         </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_fragment_homework_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rl_frag_homework_title"/>
-
-
 
 
     </RelativeLayout>

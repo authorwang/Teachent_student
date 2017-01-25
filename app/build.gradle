@@ -19,7 +19,7 @@ android {
     buildToolsVersion "24.0.0"
     defaultConfig {
         applicationId "com.ant.nepu.teachent"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

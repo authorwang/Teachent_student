@@ -15,6 +15,7 @@ import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.fragment.ContactFragment;
 import com.ant.nepu.teachent.fragment.HomeFragment;
 import com.ant.nepu.teachent.fragment.HomeworkFragment;
+import com.ant.nepu.teachent.fragment.InformationFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageDetailFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 import com.ant.nepu.teachent.fragment.PPTFragment;
@@ -149,7 +150,9 @@ public class TeachentMainActivity extends AppCompatActivity
      * 我的信息
      */
     private void goInformation() {
-        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_settings_information),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_settings_information),Toast.LENGTH_SHORT).show();
+        InformationFragment fragment = new InformationFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
     }
 
     /**
