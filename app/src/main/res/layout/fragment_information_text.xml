@@ -1,0 +1,72 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.ant.nepu.teachent.fragment.InformationTextFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_frag_homework_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="@dimen/fab_margin">
+
+            <TextView
+                android:id="@+id/tv_frag_information_text_title"
+                style="@style/fragment_ppt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/btn_frag_information_text_save"
+                android:layout_alignBottom="@+id/btn_frag_information_text_save"
+                android:layout_centerHorizontal="true"
+                android:text="@string/fragment_information_text_title" />
+
+            <Button
+                android:id="@+id/btn_frag_information_text_save"
+                style="@style/fragment_ppt_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/frag_ppt_btn_dl_selector"
+                android:text="@string/fragment_information_text_button_save" />
+
+            <Button
+                android:id="@+id/btn_frag_information_text_cancel"
+                style="@style/fragment_ppt_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/frag_ppt_btn_dl_selector"
+                android:text="@string/fragment_information_text_button_cancel" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/rl_frag_homework_title">
+
+            <EditText
+                android:id="@+id/et_frag_information_text_content"
+                android:layout_width="360dp"
+                android:enabled="true"	android:gravity="top"	android:inputType="textMultiLine"	android:minLines="8"	android:maxLines="10"	android:scrollbars="vertical" 	android:background="@android:drawable/edit_text"
+                android:layout_height="430dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</FrameLayout>

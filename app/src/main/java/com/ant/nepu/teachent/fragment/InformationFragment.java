@@ -21,6 +21,7 @@ public class InformationFragment extends Fragment {
     private View mView;
     private ListView listView;
     private InformationListAdapter adapter;
+    private Fragment fragment;
 
     public InformationFragment() {
         // Required empty public constructor
@@ -70,7 +71,29 @@ public class InformationFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                switch (position){//对应上述配置数据
+                    case 0://头像
+                        fragment = new InformationAvatarFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
+                        break;
+                    case 1://学号
+                         fragment = InformationTextFragment.getInstance("学号");
+                        getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
+                        break;
+                    case 2://姓名
+                        fragment = InformationTextFragment.getInstance("姓名");
+                        getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
+                        break;
+                    case 3://学校
+                        fragment = InformationTextFragment.getInstance("学校");
+                        getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
+                        break;
+                    case 4://班级
+                        fragment = InformationTextFragment.getInstance("班级");
+                        getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
+                        break;
+                }
+
             }
         });
     }

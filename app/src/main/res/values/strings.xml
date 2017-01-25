@@ -69,6 +69,15 @@
     <string name="fragment_leave_message_detail_close_button_text">返回</string>
     <string name="fragment_leave_message_detail_comment_button_text">评论</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--我的信息 头像信息Fragment-->
+    <string name="fragment_information_avatar_title">头像详情</string>
+    <string name="fragment_information_avatar_button_select">选取</string>
+    <string name="fragment_information_avatar_button_back">返回</string>
+
+    <!--我的信息 文本信息Fragment-->
+    <string name="fragment_information_text_title">默认标题</string>
+    <string name="fragment_information_text_button_save">保存</string>
+    <string name="fragment_information_text_button_cancel">取消</string>
+
 </resources>
