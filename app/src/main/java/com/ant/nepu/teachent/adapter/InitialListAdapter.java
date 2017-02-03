@@ -66,14 +66,14 @@ public class InitialListAdapter extends BaseAdapter {
 //            if(position==0){//若为头像
 //                convertView = inflater.inflate(R.layout.information_avatar_list_item,null);
 //            }else{
-                convertView = inflater.inflate(R.layout.information_text_list_item,null);
+                convertView = inflater.inflate(R.layout.initial_text_list_item,null);
 //            }
             vh = new ViewHolder();
 //            if(position==0){//若为头像
 //                vh.iv_avatar = (ImageView) convertView.findViewById(R.id.iv_frag_information_avatar);
 //            }else {
-                vh.tv_title = (TextView) convertView.findViewById(R.id.tv_frag_information_title);
-                vh.tv_text = (TextView) convertView.findViewById(R.id.tv_frag_information_text);
+                vh.tv_title = (TextView) convertView.findViewById(R.id.tv_activity_initial_title);
+                vh.tv_text = (TextView) convertView.findViewById(R.id.tv_activity_initial_text);
 //            }
             convertView.setTag(vh);
         }else{

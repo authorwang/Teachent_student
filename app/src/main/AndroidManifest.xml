@@ -38,7 +38,8 @@
         <activity
             android:name=".activity.TeachentMainActivity"
             android:label="@string/title_activity_teachent_main"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -47,8 +48,13 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.TeachentInitialActivity"
+        <activity
+            android:name=".activity.TeachentInitialActivity"
             android:label="@string/title_activity_teachent_initial"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.InitialTextActivity"
+            android:label="@string/title_activity_teachent_initial"
+            android:windowSoftInputMode="adjustPan"
             ></activity>
     </application>
 
