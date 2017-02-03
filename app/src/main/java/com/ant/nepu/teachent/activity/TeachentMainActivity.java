@@ -99,20 +99,15 @@ public class TeachentMainActivity extends AppCompatActivity
         //判断用户是否初始化
         CommonData.isInitial = AVUser.getCurrentUser().getBoolean("isInitial");
         if (!CommonData.isInitial) {
-            initDataBase();
-            goInformation();
-            return;
+            startActivity(new Intent(TeachentMainActivity.this,TeachentInitialActivity.class));
+            TeachentMainActivity.this.finish();
         }
         // 显示欢迎界面
         goWelcome();
     }
 
-    /**
-     * 初始化数据库
-     */
-    private void initDataBase() {
 
-    }
+
 
 
     /**
