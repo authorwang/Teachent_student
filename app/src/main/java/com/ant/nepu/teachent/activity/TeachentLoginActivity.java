@@ -29,11 +29,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ant.nepu.teachent.R;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.SignUpCallback;
 
 import static android.Manifest.permission.READ_CONTACTS;
 /**
@@ -56,13 +61,13 @@ public class TeachentLoginActivity extends AppCompatActivity implements LoaderCa
     /**
      * 完成用户登录和用户注册功能前保留
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
+//    private static final String[] DUMMY_CREDENTIALS = new String[]{
+//            "foo@example.com:hello", "bar@example.com:world"
+//    };
+//    /**
+//     * Keep track of the login task to ensure we can cancel it if requested.
+//     */
+//    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -152,9 +157,10 @@ public class TeachentLoginActivity extends AppCompatActivity implements LoaderCa
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {//已经进入登录线程，不执行登录操作
-            return;
-        }
+
+//        if (mAuthTask != null) {//已经进入登录线程，不执行登录操作
+//            return;
+//        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -193,8 +199,58 @@ public class TeachentLoginActivity extends AppCompatActivity implements LoaderCa
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);//显示进度条
-            mAuthTask = new UserLoginTask(email, password);//登录线程
-            mAuthTask.execute((Void) null);//执行登录线程
+//            mAuthTask = new UserLoginTask(email, password);//登录线程
+//            mAuthTask.execute((Void) null);//执行登录线程
+            AVUser.logInInBackground(email, password, new LogInCallback<AVUser>() {
+                @Override
+                public void done(AVUser avUser, AVException e) {
+                    if(e==null){
+                        startActivity(new Intent(TeachentLoginActivity.this,TeachentMainActivity.class));
+                        TeachentLoginActivity.this.finish();
+                    }
+//                    else{
+//                        Toast.makeText(TeachentLoginActivity.this,e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+//                    }
+
+                }
+            });
+//            return false;
+            /**
+             * 此处代码替换为用户登录代码
+             * 返回true代表登录成功
+             * 登录失败无return语句
+             */
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mEmail)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
+
+            /**
+             * 用户注册
+             * 注册成功后要进行登录操作，
+             * 登录成功要返回true
+             * 失败要返回false
+             */
+            AVUser user = new AVUser();
+            user.setUsername(email);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(AVException e) {
+                    if(e==null){
+                        startActivity(new Intent(TeachentLoginActivity.this,TeachentMainActivity.class));
+                        TeachentLoginActivity.this.finish();
+                    }else{
+                        showProgress(false);
+//                        Toast.makeText(TeachentLoginActivity.this,getString(R.string.error_login_or_register_fail),Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+//            return false;
         }
     }
 
@@ -298,69 +354,47 @@ public class TeachentLoginActivity extends AppCompatActivity implements LoaderCa
         int IS_PRIMARY = 1;
     }
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-
-
-            /**
-             * 此处代码替换为用户登录代码
-             * 返回true代表登录成功
-             * 登录失败无return语句
-             */
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            /**
-             * 用户注册
-             * 注册成功后要进行登录操作，
-             * 登录成功要返回true
-             * 失败要返回false
-             */
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {//登录成功
-                Intent intent = new Intent(TeachentLoginActivity.this,TeachentMainActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
+//    /**
+//     * Represents an asynchronous login/registration task used to authenticate
+//     * the user.
+//     */
+//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+//
+//        private final String mEmail;
+//        private final String mPassword;
+//
+//        UserLoginTask(String email, String password) {
+//            mEmail = email;
+//            mPassword = password;
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            // TODO: attempt authentication against a network service.
+//
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(final Boolean success) {
+//            mAuthTask = null;
+//            showProgress(false);
+//
+//            if (success) {//登录成功
+//                Intent intent = new Intent(TeachentLoginActivity.this,TeachentMainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            } else {
+//                mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                mPasswordView.requestFocus();
+//            }
+//        }
+//
+//        @Override
+//        protected void onCancelled() {
+//            mAuthTask = null;
+//            showProgress(false);
+//        }
+//    }
 }
 

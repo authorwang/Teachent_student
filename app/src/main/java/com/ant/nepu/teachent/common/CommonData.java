@@ -1,5 +1,9 @@
 package com.ant.nepu.teachent.common;
 
+import android.graphics.Bitmap;
+
+import com.avos.avoscloud.AVFile;
+
 /**
  * 公共数据
  * *********************************************
@@ -10,14 +14,21 @@ package com.ant.nepu.teachent.common;
  */
 
 public class CommonData {
+    //是否初始化标记
+    public static boolean isInitial;
+    //头像
+    public static AVFile userRawAvatar;
+    public static Bitmap userAvatar;
     //用户名
     public static String userName;
-    //昵称
-    public static String nickName;
+    //Email
+    public static String userEmail;
+    //学校代号
+    public static String userSchoolId;
     //A类积分
-    public static int typeAScore;
+    public static int userCreditA;
     //B类积分
-    public static int typeBScore;
+    public static int userCreditB;
     //A类考勤数:已考勤次数
     public static int stateACheckIn;
     //B类考勤数:总共需考勤次数

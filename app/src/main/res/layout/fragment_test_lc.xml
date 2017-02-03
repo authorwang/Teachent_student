@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ant.nepu.teachent.fragment.TestLCFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询role表"
+            android:id="@+id/test_btn_query_role"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_btn_query_role"
+            android:layout_alignParentStart="true"
+            android:id="@+id/test_tv_query_role"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -75,10 +75,10 @@ public class HomeFragment extends Fragment {
         /*
         载入学生信息
          */
-        String userName = CommonData.userName;
-        String nickName = CommonData.nickName;
-        int typeAScore = CommonData.typeAScore;
-        int typeBScore = CommonData.typeBScore;
+        String userName = CommonData.userEmail;
+        String nickName = CommonData.userName;
+        int typeAScore = CommonData.userCreditA;
+        int typeBScore = CommonData.userCreditB;
 
         /*
         载入考勤数据

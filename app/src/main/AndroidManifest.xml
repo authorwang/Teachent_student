@@ -26,24 +26,25 @@
         <activity
             android:name=".activity.TeachentSplashActivity"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity
-            android:name=".activity.TeachentLoginActivity"
-            android:label="@string/title_activity_teachent_login" />
-        <activity
-            android:name=".activity.TeachentMainActivity"
-            android:label="@string/title_activity_teachent_main"
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.TeachentLoginActivity"
+            android:windowSoftInputMode="adjustPan"
+        android:label="@string/title_activity_teachent_login" />
+        <activity
+            android:name=".activity.TeachentMainActivity"
+            android:label="@string/title_activity_teachent_main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
     </application>
 
