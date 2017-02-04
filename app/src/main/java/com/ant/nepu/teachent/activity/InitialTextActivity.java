@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ant.nepu.teachent.R;
+import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
 
 public class InitialTextActivity extends AppCompatActivity {
@@ -50,8 +51,10 @@ public class InitialTextActivity extends AppCompatActivity {
                 intent.putExtra("result",result);
                 if(title.equals("学号")){
                     setResult(Constants.RESULT_NO,intent);
+                    CommonData.initialSelectedNo = result;
                 }else if(title.equals("姓名")){
                     setResult(Constants.RESULT_NAME,intent);
+                    CommonData.initialSelectedName = result;
                 }
                 finish();
 

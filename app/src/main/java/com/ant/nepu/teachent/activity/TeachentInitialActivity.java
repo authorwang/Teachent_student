@@ -7,10 +7,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.InitialListAdapter;
+import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
 
 public class TeachentInitialActivity extends AppCompatActivity {
 
@@ -73,17 +77,54 @@ public class TeachentInitialActivity extends AppCompatActivity {
                         startActivityForResult(intent_name, Constants.REQUEST_TEXT_NAME);
                         break;
                     case 2://学校
+                        Intent intent_school = new Intent(TeachentInitialActivity.this,InitialListActivity.class);
+                        intent_school.putExtra("title","学校");
+                        startActivityForResult(intent_school,Constants.REQUEST_LIST_SCHOOL);
                         break;
                     case 3://班级
+                        Intent intent_class = new Intent(TeachentInitialActivity.this,InitialListActivity.class);
+                        intent_class.putExtra("title","班级");
+                        startActivityForResult(intent_class,Constants.REQUEST_LIST_CLASS);
                         break;
                     case 4://完成设置
+                        //判空
+                        if(CommonData.initialSelectedNo.equals("") ||
+                                CommonData.initialSelectedName.equals("") ||
+                                CommonData.initialSelectedSchoolId.equals("") ||
+                                CommonData.initialSelectedClassId.equals("")){
+                            Toast.makeText(TeachentInitialActivity.this,getString(R.string.error_initial_finish_setting_empty),Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //更新相关数据库
+                        //更新student表
+                        AVObject student = new AVObject("student");
+                        student.put("studentid",CommonData.initialSelectedNo);
+                        student.put("studentname",CommonData.initialSelectedName);
+                        student.saveInBackground();
+                        //更新userrole表
+                        AVObject userrole = new AVObject("userrole");
+                        userrole.put("rolename","student");
+                        userrole.put("userid", AVUser.getCurrentUser().getObjectId());
+                        userrole.put("relatedid",CommonData.initialSelectedNo);
+                        userrole.saveInBackground();
+                        //更新studentclass表
+                        AVObject studentclass = new AVObject("studentclass");
+                        studentclass.put("studentid",CommonData.initialSelectedNo);
+                        studentclass.put("classid",CommonData.initialSelectedClassId);
+                        studentclass.saveInBackground();
+                        //更新initial标记
+                        AVObject _user = AVObject.createWithoutData("_User",AVUser.getCurrentUser().getObjectId());
+                        _user.put("isInitial",true);
+                        _user.put("userrealname",CommonData.initialSelectedName);
+                        _user.saveInBackground();
+                        AVUser.logOut();
+                        Intent intent_finish = new Intent(TeachentInitialActivity.this,TeachentLoginActivity.class);
+                        startActivity(intent_finish);
+                        finish();
                         break;
                 }
-
             }
         });
-
-
     }
 
     @Override
@@ -99,6 +140,16 @@ public class TeachentInitialActivity extends AppCompatActivity {
             View view = listView.getChildAt(1);
             TextView tv = (TextView) view.findViewById(R.id.tv_activity_initial_text);
             tv.setText(resultName);
+        }else if(resultCode==Constants.RESULT_SCHOOL && requestCode==Constants.REQUEST_LIST_SCHOOL){
+            String resultSchool = data.getStringExtra("result");
+            View view = listView.getChildAt(2);
+            TextView tv  = (TextView) view.findViewById(R.id.tv_activity_initial_text);
+            tv.setText(resultSchool);
+        }else if(resultCode==Constants.RESULT_CLASS && requestCode==Constants.REQUEST_LIST_CLASS){
+            String resultClass = data.getStringExtra("result");
+            View view = listView.getChildAt(3);
+            TextView tv  = (TextView) view.findViewById(R.id.tv_activity_initial_text);
+            tv.setText(resultClass);
         }
 
         }

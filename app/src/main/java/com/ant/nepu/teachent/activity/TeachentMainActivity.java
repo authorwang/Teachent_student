@@ -119,8 +119,8 @@ public class TeachentMainActivity extends AppCompatActivity
          * 从缓存获取用户数据
          */
         String userid = AVUser.getCurrentUser().getObjectId();
-        String username = AVUser.getCurrentUser().getUsername();
-        String email = AVUser.getCurrentUser().getEmail();
+        String userrealname = AVUser.getCurrentUser().getString("userrealname");
+        String email = AVUser.getCurrentUser().getUsername();
         String schoolid = AVUser.getCurrentUser().getString("schoolid");
         int userCreditA = AVUser.getCurrentUser().getInt("usercreditA");
         int userCreditB = AVUser.getCurrentUser().getInt("usercreditB");
@@ -130,10 +130,10 @@ public class TeachentMainActivity extends AppCompatActivity
          * 将有效值写入到CommonData
          */
         //写入用户名 CommonData
-        if (username.equals(email)) {//未设置用户名
+        if (userrealname==null) {//未设置用户名
             CommonData.userName = getString(R.string.text_user_null);
         } else {
-            CommonData.userName = username;
+            CommonData.userName = userrealname;
         }
         handler.sendEmptyMessage(Constants.UPDATE_USERNAME);
 //        Toast.makeText(this,CommonData.userName,Toast.LENGTH_SHORT).show();
@@ -359,6 +359,10 @@ public class TeachentMainActivity extends AppCompatActivity
         CommonData.userEmail = null;
         CommonData.userCreditA = 0;
         CommonData.userCreditB = 0;
+        CommonData.initialSelectedNo = "";
+        CommonData.initialSelectedName = "";
+        CommonData.initialSelectedClassId = "";
+        CommonData.initialSelectedSchoolId = "";
     }
 
     /**

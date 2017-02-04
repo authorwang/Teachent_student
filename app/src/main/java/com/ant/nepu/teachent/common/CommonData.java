@@ -14,6 +14,17 @@ import com.avos.avoscloud.AVFile;
  */
 
 public class CommonData {
+
+    public static String[] initialSchoolId;
+    public static String[] initialSchoolName;
+    public static String[] initialClassId;
+    public static String[] initialClassName;
+    public static String initialSelectedNo = "";
+    public static String initialSelectedName = "";
+    public static String initialSelectedSchoolId = "";
+    public static String initialSelectedClassId = "";
+
+
     //是否初始化标记
     public static boolean isInitial;
     //头像

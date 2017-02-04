@@ -3,6 +3,9 @@
     <string name="title_activity_teachent_login">登录</string>
     <string name="title_activity_teachent_initial">初次使用</string>
 
+
+    <!-- TeachentInitialActivity-->
+    <string name="error_initial_finish_setting_empty">请完善信息填写！</string>
     <!-- TeachentLoginActivity -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">密码</string>

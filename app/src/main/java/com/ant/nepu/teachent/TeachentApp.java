@@ -16,14 +16,10 @@ public class TeachentApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ctx = this;
-        Utils.fixAsyncTaskBug();
+//        ctx = this;
+//        Utils.fixAsyncTaskBug();
 
-        String appId = "RzID2Ekq4Ys2noDDUfQ0bM4T-gzGzoHsz";
-        String appKey = "BC8eOnrXGpDK3ITcHmLALGOR";
 
-        //初始化LeanCloud
-        AVOSCloud.initialize(this,appId,appKey);
 
 //        LeanchatUser.alwaysUseSubUserClass(LeanchatUser.class);
 //
