@@ -3,15 +3,20 @@ package com.ant.nepu.teachent.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
+import com.ant.nepu.teachent.common.Constants;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -63,21 +68,29 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-         mView=inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        // Inflate the layout for this fragment
+        final Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case Constants.DATA_PREPARED:
+                        initSecondaryData();
+                        //设置控件
+                        setControls();
+                        break;
+                }
+            }
+        };
+
+        loadPreCheckInData(handler);
+        mView=inflater.inflate(R.layout.fragment_home, container, false);
         //findViews
         mChart = (PieChart) mView.findViewById(R.id.fragment_check_in_chart_times);
         tv_greeting = (TextView) mView.findViewById(R.id.tv_frag_home_greeting);
         tv_username  = (TextView) mView.findViewById(R.id.tv_frag_home_nickname);
-
-        /**
-         * 初始化数据
-         */
-        initData();
-
-        //设置控件
-        setControls();
 
         return mView;
     }
@@ -93,11 +106,60 @@ public class HomeFragment extends Fragment {
         setPieChart();
     }
 
+    /**
+     * 考勤信息预加载
+     */
+    private void loadPreCheckInData(final Handler handler) {
+
+
+        //载入考勤信息
+        for(final String classId:CommonData.classIdList){
+//            Toast.makeText(mView.getContext(),classId,Toast.LENGTH_SHORT).show();
+            Log.d("classId",classId);
+            String studentClassCql = "select studentcheck from studentclass where classid='"+classId+"'";
+            AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                @Override
+                public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                    int studentCheck = avCloudQueryResult.getResults().get(0).getInt("studentcheck");
+                    CommonData.stateACheckIn+=studentCheck;
+                    Log.d("studentCheck",Integer.toString(studentCheck));
+                    Log.d("stateACheckIn",Integer.toString(CommonData.stateACheckIn));
+                    String teacherClassCql = "select teachercheck from teacherclass where classid='"+classId+"'";
+                    AVQuery.doCloudQueryInBackground(teacherClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                        @Override
+                        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                            if(e==null){
+                                int teachercheck = avCloudQueryResult.getResults().get(0).getInt("teachercheck");
+                                Log.d("teachercheck",Integer.toString(teachercheck));
+//                                String s = Integer.toString(teachercheck);
+//                                Toast.makeText(mView.getContext(),s,Toast.LENGTH_SHORT).show();
+                                CommonData.stateBCheckIn+=teachercheck;
+                                Log.d("stateBCheckIn",Integer.toString(CommonData.stateBCheckIn));
+//                                if(i==CommonData.classIdList.size())
+                                    handler.sendEmptyMessage(Constants.DATA_PREPARED);
+
+                            }else{
+                                Log.e("error getteacherclass",e.getMessage());
+                            }
+
+                        }
+                    });
+                }
+            });
+
+        }
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                handler.sendEmptyMessage(Constants.DATA_PREPARED);
+//            }
+//        },2000);
+    }
 
     /**
-     * 初始化数据
+     * 初始化二次数据
      */
-    private void initData() {
+    private void initSecondaryData() {
         //判断问候时间
         android.text.format.Time t = new android.text.format.Time();
         t.setToNow();
@@ -110,20 +172,24 @@ public class HomeFragment extends Fragment {
             greeting_Text = getString(R.string.fragment_check_in_greeting_afternoon);
         }
 
-        //载入学生信息
-        String userName = CommonData.userEmail;
-        String nickName = CommonData.userName;
-        int typeAScore = CommonData.userCreditA;
-        int typeBScore = CommonData.userCreditB;
+//        //载入学生信息
+//        String userName = CommonData.userEmail;
+//        String nickName = CommonData.userName;
+//        int typeAScore = CommonData.userCreditA;
+//        int typeBScore = CommonData.userCreditB;
 
-        //载入考勤信息
-        for(String classId:CommonData.classIdList){
-            String studentClassCql = "select studentcheck from ";
+//        String a = String.valueOf(CommonData.stateACheckIn);
+//        String b = String.valueOf(CommonData.stateBCheckIn);
+//        Toast.makeText(getContext(),a,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(),b,Toast.LENGTH_SHORT).show();
+        if(CommonData.stateBCheckIn == CommonData.stateACheckIn && CommonData.stateBCheckIn == 0){
+            totalCheck=1;
+            isChecked = 1;
+        }else{
+            totalCheck = CommonData.stateBCheckIn;//总共需考勤数
+            isChecked = CommonData.stateACheckIn;//实际已考勤次数
         }
 
-
-        totalCheck = CommonData.stateBCheckIn;//总共需考勤数
-        isChecked = CommonData.stateACheckIn;//实际已考勤次数
 
 
     }

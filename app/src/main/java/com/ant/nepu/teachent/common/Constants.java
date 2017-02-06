@@ -13,11 +13,31 @@ public class  Constants {
 
 
     /**
+     * 全局数据更新
+     */
+    public static final int DATA_PREPARED = 0x1;
+
+
+
+    /**
      * TeachentMainActivity更新UI
      */
     public static final int UPDATE_USERNAME = 0x1;
     public static final int UPDATE_USEREMAIL = 0x2;
     public static final int UPDATE_USERAVATAR = 0x3;
+    public static final int FRAGMENT_HOME = 0x4;
+
+    /**
+     * TeachentMainActivity 导航Fragment
+     */
+    public static final int FRAGMENT_CHECK_IN = 0x1;
+    public static final int FRAGMENT_PPT = 0x2;
+    public static final int FRAGMENT_HOMEWORK = 0x3;
+    public static final int FRAGMENT_CONTACT = 0x4;
+    public static final int FRAGMENT_LEAVE_MESSAGE = 0x5;
+    public static final int FRAGMENT_INFORMATION = 0x7;
+    public static final int FRAGMENT_ABOUT= 0x8;
+    public static final int FRAGMENT_LOG_OUT= 0x9;
 
     /**
      * TeachentInitialActivity传递参数

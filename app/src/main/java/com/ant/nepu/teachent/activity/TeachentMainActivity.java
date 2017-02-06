@@ -33,6 +33,8 @@ import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 import com.ant.nepu.teachent.fragment.PPTFragment;
 import com.ant.nepu.teachent.fragment.TestLCFragment;
 import com.ant.nepu.teachent.util.ImageUtils;
+import com.ant.nepu.teachent.util.UserInfoUtils;
+import com.ant.nepu.teachent.util.Utils;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -44,6 +46,7 @@ import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.LogUtil;
 import com.avos.avoscloud.okhttp.internal.framed.FrameReader;
+import com.tencent.qc.stat.common.User;
 
 /**
  * App主界面
@@ -92,11 +95,13 @@ public class TeachentMainActivity extends AppCompatActivity
                     case Constants.UPDATE_USEREMAIL:
                         tv_nav_email.setText(CommonData.userEmail);
                         break;
+                    case Constants.FRAGMENT_HOME:
+                        goCheckIn();
+                        break;
                 }
             }
         };
-        //预加载用户数据
-        loadUserData(handler);
+
         //初始化导航栏()
         initNavigationView();
         //判断用户是否初始化
@@ -105,8 +110,10 @@ public class TeachentMainActivity extends AppCompatActivity
             startActivity(new Intent(TeachentMainActivity.this,TeachentInitialActivity.class));
             TeachentMainActivity.this.finish();
         }
-        // 显示欢迎界面
-        goWelcome();
+//        // 显示欢迎界面
+//        goCheckIn();
+        //预加载用户数据
+        loadUserData(handler);
     }
 
 
@@ -118,119 +125,48 @@ public class TeachentMainActivity extends AppCompatActivity
      * 更新到UI并写入commonData
      */
     private void loadUserData(final Handler handler) {
-        /**
-         * 从缓存获取用户数据
-         */
-        String userid = AVUser.getCurrentUser().getObjectId();
-        String userrealname = AVUser.getCurrentUser().getString("userrealname");
-        String email = AVUser.getCurrentUser().getUsername();
-        final String schoolid = AVUser.getCurrentUser().getString("schoolid");
-        int userCreditA = AVUser.getCurrentUser().getInt("usercreditA");
-        int userCreditB = AVUser.getCurrentUser().getInt("usercreditB");
-        AVFile userAvatar = AVUser.getCurrentUser().getAVFile("useravatar");
-
-        /**
-         * 将有效值写入到CommonData
-         */
         //写入用户名 CommonData
-        if (userrealname==null) {//未设置用户名
-            CommonData.userName = getString(R.string.text_user_null);
-        } else {
-            CommonData.userName = userrealname;
-        }
+        if(!UserInfoUtils.refreshUserName()){
+            Log.e("error get cache","error get username from cache");
+        };
         handler.sendEmptyMessage(Constants.UPDATE_USERNAME);
-//        Toast.makeText(this,CommonData.userName,Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this,tv_nav_username.toString(),Toast.LENGTH_SHORT).show();
 
         //写入email CommonData
-        CommonData.userEmail = email;
-        //tv_nav_email.setText(CommonData.userEmail);
+        if(!UserInfoUtils.refreshEmail()){
+            Log.e("error get cache","error get email from cache");
+        }
         handler.sendEmptyMessage(Constants.UPDATE_USEREMAIL);
-//        Toast.makeText(this,CommonData.userEmail,Toast.LENGTH_SHORT).show();
 
         //写入学校id CommonData
-        if (schoolid == null) {
-            CommonData.userSchoolId = "-1";
-        } else {
-            CommonData.userSchoolId = schoolid;
+        if(!UserInfoUtils.refreshSchoolId()){
+            Log.e("error get cache","error get schoolid from cache");
         }
 
         //写入积分 CommonData
-        CommonData.userCreditA = userCreditA;
-        CommonData.userCreditB = userCreditB;
-
-        //写入头像CommonData
-        CommonData.userRawAvatar = userAvatar;
-        //将AVFile转换为Bitmap
-        if (CommonData.userRawAvatar != null) {
-            //下载AVFile
-            CommonData.userRawAvatar.getDataInBackground(new GetDataCallback() {
-                @Override
-                public void done(byte[] bytes, AVException e) {
-                    if (e == null) {//转换为bitmap
-                        CommonData.userAvatar = ImageUtils.getPicFromBytes(bytes, null);
-//                        Toast.makeText(TeachentMainActivity.this,CommonData.userAvatar.toString(),Toast.LENGTH_LONG).show();
-                        //iv_nav_avatar.setImageBitmap(CommonData.userAvatar);
-                        handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
-
-                    } else {
-                        Log.e("download avfile error:", e.getMessage());
-                        Toast.makeText(TeachentMainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        } else {//使用默认头像
-            CommonData.userAvatar = BitmapFactory.decodeResource(this.getResources(), R.mipmap.avatar_student_male);
-            //iv_nav_avatar.setImageBitmap(CommonData.userAvatar);
-            handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+        if(!UserInfoUtils.refreshCreditA()){
+            Log.e("error get cache","error get creditA from cache");
+        }
+        if(!UserInfoUtils.refreshCreditB()){
+            Log.e("error get cache","error get creditB from cache");
         }
 
+        //写入头像CommonData
+        UserInfoUtils.refreshAvatar(this);
+        handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+
         //写入班级CommonData
-        String userroleCql = "select relatedid from userrole where userid='"+userid+"'";
-        AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                final String studentId = avCloudQueryResult.getResults().get(0).getString("relatedid");
-                String studentClassCountCql = "select count(*) from studentclass where studentid='"+studentId+"'";
-                AVQuery.doCloudQueryInBackground(studentClassCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                    @Override
-                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                        final int studentClassCount = avCloudQueryResult.getCount();
-//                        String s = Integer.toString(studentClassCount);
-//                        Toast.makeText(TeachentMainActivity.this,s,Toast.LENGTH_SHORT).show();
-                        String studentClassCql = "select classid from studentclass where studentid='"+studentId+"'";
-                        AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                            @Override
-                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                                if(e==null){
-                                    for(int i=0;i<studentClassCount;i++){
-                                        CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
-//                                        Toast.makeText(TeachentMainActivity.this,avCloudQueryResult.getResults().get(i).getString("classid"),Toast.LENGTH_SHORT).show();
-                                    }
-                                }else{
-                                    Log.e("error:studentclass",e.getMessage());
-                                    Toast.makeText(TeachentMainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
-
+        UserInfoUtils.refreshClass(this,handler);
     }
 
     /**
      * 欢迎界面
      */
-    private void goWelcome() {
-        //考勤界面
-        goCheckIn();
-//        TestLCFragment fragment = new TestLCFragment();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
-    }
+//    private void goWelcome() {
+//        //考勤界面
+//        goCheckIn();
+////        TestLCFragment fragment = new TestLCFragment();
+////        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
+//    }
 
     private void initNavigationView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -298,10 +234,46 @@ public class TeachentMainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+        final Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case Constants.FRAGMENT_CHECK_IN:
+                        CommonData.stateACheckIn = 0;
+                        CommonData.stateBCheckIn = 0;
+                        goCheckIn();
+                        break;
+                    case Constants.FRAGMENT_PPT:
+                        goPPT();
+                        break;
+                    case Constants.FRAGMENT_HOMEWORK:
+                        goHomework();
+                        break;
+                    case Constants.FRAGMENT_CONTACT:
+                        goContact();
+                        break;
+                    case Constants.FRAGMENT_LEAVE_MESSAGE:
+                        goLeaveMessage();
+                        break;
+                    case Constants.FRAGMENT_INFORMATION:
+                        goInformation();
+                        break;
+                    case Constants.FRAGMENT_ABOUT:
+                        goAbout();
+                        break;
+                    case Constants.FRAGMENT_LOG_OUT:
+                        goLogout();
+                        break;
+                }
+            }
+        };
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_checkin://考勤
+//                UserInfoUtils.refreshClass(this,handler);
                 goCheckIn();
                 break;
             case R.id.nav_ppt://课件
@@ -332,6 +304,8 @@ public class TeachentMainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     /**
      * 我的信息
