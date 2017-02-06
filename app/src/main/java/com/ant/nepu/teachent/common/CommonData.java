@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.avos.avoscloud.AVFile;
 
+import java.util.ArrayList;
+
 /**
  * 公共数据
  * *********************************************
@@ -44,6 +46,9 @@ public class CommonData {
     public static int stateACheckIn;
     //B类考勤数:总共需考勤次数
     public static  int stateBCheckIn;
+
+    //班级id列表
+    public static ArrayList<String> classIdList = new ArrayList<>();
 
     //课件名称列表
     public static String[] pptNameList;

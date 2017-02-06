@@ -5,7 +5,8 @@
 
 
     <!-- TeachentInitialActivity-->
-    <string name="error_initial_finish_setting_empty">请完善信息填写！</string>
+    <string name="error_initial_finish_setting_empty">请完善信息填写。</string>
+    <string name="tip_initial_finish_setting_relogin">用户信息已更新，请重新登录。</string>
     <!-- TeachentLoginActivity -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">密码</string>

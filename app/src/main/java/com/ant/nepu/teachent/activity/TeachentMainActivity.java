@@ -33,13 +33,16 @@ import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 import com.ant.nepu.teachent.fragment.PPTFragment;
 import com.ant.nepu.teachent.fragment.TestLCFragment;
 import com.ant.nepu.teachent.util.ImageUtils;
+import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CloudQueryCallback;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.GetDataCallback;
+import com.avos.avoscloud.LogUtil;
 import com.avos.avoscloud.okhttp.internal.framed.FrameReader;
 
 /**
@@ -121,7 +124,7 @@ public class TeachentMainActivity extends AppCompatActivity
         String userid = AVUser.getCurrentUser().getObjectId();
         String userrealname = AVUser.getCurrentUser().getString("userrealname");
         String email = AVUser.getCurrentUser().getUsername();
-        String schoolid = AVUser.getCurrentUser().getString("schoolid");
+        final String schoolid = AVUser.getCurrentUser().getString("schoolid");
         int userCreditA = AVUser.getCurrentUser().getInt("usercreditA");
         int userCreditB = AVUser.getCurrentUser().getInt("usercreditB");
         AVFile userAvatar = AVUser.getCurrentUser().getAVFile("useravatar");
@@ -156,28 +159,8 @@ public class TeachentMainActivity extends AppCompatActivity
         CommonData.userCreditA = userCreditA;
         CommonData.userCreditB = userCreditB;
 
-        /**
-         * 写入头像 CommonData
-         */
+        //写入头像CommonData
         CommonData.userRawAvatar = userAvatar;
-//        //从服务器获取AVFile文件
-//        AVQuery<AVObject> avQuery = new AVQuery<>("_User");
-//        avQuery.getInBackground(userid, new GetCallback<AVObject>() {
-//            @Override
-//            public void done(AVObject avObject, AVException e) {
-//                if (e == null) {
-//                    if (avObject != null) {
-//                        CommonData.userRawAvatar = avObject.getAVFile("useravatar");
-//                    } else {
-//                        CommonData.userRawAvatar = null;
-//                    }
-//                } else {
-//                    Log.e("avQuery error:", e.getMessage());
-//                    Toast.makeText(TeachentMainActivity.this,e.getMessage().toString(),Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-
         //将AVFile转换为Bitmap
         if (CommonData.userRawAvatar != null) {
             //下载AVFile
@@ -197,24 +180,44 @@ public class TeachentMainActivity extends AppCompatActivity
                 }
             });
         } else {//使用默认头像
-            CommonData.userAvatar = BitmapFactory.decodeResource(this.getResources(), R.mipmap.avatar_teacher_female);
+            CommonData.userAvatar = BitmapFactory.decodeResource(this.getResources(), R.mipmap.avatar_student_male);
             //iv_nav_avatar.setImageBitmap(CommonData.userAvatar);
             handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
         }
 
+        //写入班级CommonData
+        String userroleCql = "select relatedid from userrole where userid='"+userid+"'";
+        AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                final String studentId = avCloudQueryResult.getResults().get(0).getString("relatedid");
+                String studentClassCountCql = "select count(*) from studentclass where studentid='"+studentId+"'";
+                AVQuery.doCloudQueryInBackground(studentClassCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                    @Override
+                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                        final int studentClassCount = avCloudQueryResult.getCount();
+//                        String s = Integer.toString(studentClassCount);
+//                        Toast.makeText(TeachentMainActivity.this,s,Toast.LENGTH_SHORT).show();
+                        String studentClassCql = "select classid from studentclass where studentid='"+studentId+"'";
+                        AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                            @Override
+                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                                if(e==null){
+                                    for(int i=0;i<studentClassCount;i++){
+                                        CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
+//                                        Toast.makeText(TeachentMainActivity.this,avCloudQueryResult.getResults().get(i).getString("classid"),Toast.LENGTH_SHORT).show();
+                                    }
+                                }else{
+                                    Log.e("error:studentclass",e.getMessage());
+                                    Toast.makeText(TeachentMainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                                }
 
-
-//        /**
-//         * 将CommonData更新到UI
-//         */
-//
-//        //更新用户头像
-//        iv_nav_avatar.setImageBitmap(CommonData.userAvatar);
-//        //更新用户名
-//        tv_nav_username.setText(CommonData.userName);
-//        //更新用户账号
-//        tv_nav_email.setText(CommonData.userEmail);
-//        //更新用户积分
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
 
     }
@@ -223,7 +226,7 @@ public class TeachentMainActivity extends AppCompatActivity
      * 欢迎界面
      */
     private void goWelcome() {
-        //临时：考勤界面
+        //考勤界面
         goCheckIn();
 //        TestLCFragment fragment = new TestLCFragment();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();

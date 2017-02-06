@@ -120,6 +120,7 @@ public class TeachentInitialActivity extends AppCompatActivity {
                         AVUser.logOut();
                         Intent intent_finish = new Intent(TeachentInitialActivity.this,TeachentLoginActivity.class);
                         startActivity(intent_finish);
+                        Toast.makeText(TeachentInitialActivity.this,getString(R.string.tip_initial_finish_setting_relogin),Toast.LENGTH_LONG).show();
                         finish();
                         break;
                 }

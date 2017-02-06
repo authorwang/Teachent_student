@@ -8,8 +8,15 @@ import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
+import com.avos.avoscloud.AVCloudQueryResult;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CloudQueryCallback;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -18,6 +25,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+
+import org.w3c.dom.Text;
+
+import java.sql.Time;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +41,9 @@ public class HomeFragment extends Fragment {
      */
     PieChart mChart;
     View mView;
+    private TextView tv_username;
+    private TextView tv_greeting;
+    private String greeting_Text;
 
     /**
      * PieChart数据
@@ -51,41 +65,62 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          mView=inflater.inflate(R.layout.fragment_home, container, false);
+
+        //findViews
         mChart = (PieChart) mView.findViewById(R.id.fragment_check_in_chart_times);
+        tv_greeting = (TextView) mView.findViewById(R.id.tv_frag_home_greeting);
+        tv_username  = (TextView) mView.findViewById(R.id.tv_frag_home_nickname);
 
         /**
          * 初始化数据
          */
         initData();
-        /**
-         * 设置PieChart
-         */
-        setPieChart();
+
+        //设置控件
+        setControls();
+
         return mView;
     }
 
-
-
+    /**
+     * 设置控件
+     */
+    private void setControls() {
+        //设置Textview
+        tv_greeting.setText(greeting_Text);
+        tv_username.setText(CommonData.userName);
+        //设置pieChart
+        setPieChart();
+    }
 
 
     /**
      * 初始化数据
      */
     private void initData() {
-        /*
-        载入学生信息
-         */
+        //判断问候时间
+        android.text.format.Time t = new android.text.format.Time();
+        t.setToNow();
+        int hour = t.hour;
+        if((hour>=0 && hour<=6) || (hour>=18 && hour<=23)){//晚上
+            greeting_Text = getString(R.string.fragment_check_in_greeting_evening);
+        }else if(hour>6 && hour<12){//上午
+            greeting_Text = getString(R.string.fragment_check_in_greeting_morning);
+        }else if(hour>=12 && hour<18){
+            greeting_Text = getString(R.string.fragment_check_in_greeting_afternoon);
+        }
+
+        //载入学生信息
         String userName = CommonData.userEmail;
         String nickName = CommonData.userName;
         int typeAScore = CommonData.userCreditA;
         int typeBScore = CommonData.userCreditB;
 
-        /*
-        载入考勤数据
-         */
-        //测试数据：
-        CommonData.stateBCheckIn = 100;
-        CommonData.stateACheckIn = 25;
+        //载入考勤信息
+        for(String classId:CommonData.classIdList){
+            String studentClassCql = "select studentcheck from ";
+        }
+
 
         totalCheck = CommonData.stateBCheckIn;//总共需考勤数
         isChecked = CommonData.stateACheckIn;//实际已考勤次数
