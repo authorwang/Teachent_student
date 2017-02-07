@@ -52,9 +52,15 @@ public class CommonData {
     public static String studentId;
     //班级id列表
     public static ArrayList<String> classIdList = new ArrayList<>();
+    //班级名称列表
+    public static ArrayList<String> classNameList = new ArrayList<>();
+
+
 
     //课件名称列表
     public static String[] pptNameList;
+    //课件班级编号
+    public static String  pptClassNo;
 
     //作业名称列表
     public static String[] homeworkList;

@@ -16,7 +16,7 @@ public class  Constants {
      * 全局数据更新
      */
     public static final int DATA_PREPARED = 0x1;
-
+    public static final int PRE_DATA_PREPARED = 0x2;
 
 
     /**

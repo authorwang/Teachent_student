@@ -30,6 +30,7 @@ import com.ant.nepu.teachent.fragment.HomeworkFragment;
 import com.ant.nepu.teachent.fragment.InformationFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageDetailFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
+import com.ant.nepu.teachent.fragment.PPTBaseFragment;
 import com.ant.nepu.teachent.fragment.PPTFragment;
 import com.ant.nepu.teachent.fragment.TestLCFragment;
 import com.ant.nepu.teachent.util.ImageUtils;
@@ -47,6 +48,8 @@ import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.LogUtil;
 import com.avos.avoscloud.okhttp.internal.framed.FrameReader;
 import com.tencent.qc.stat.common.User;
+
+import java.util.ArrayList;
 
 /**
  * App主界面
@@ -277,6 +280,8 @@ public class TeachentMainActivity extends AppCompatActivity
                 goCheckIn();
                 break;
             case R.id.nav_ppt://课件
+                CommonData.classIdList = new ArrayList<>();
+                CommonData.classNameList = new ArrayList<>();
                 goPPT();
                 break;
             case R.id.nav_homework://作业
@@ -384,7 +389,7 @@ public class TeachentMainActivity extends AppCompatActivity
      * 课件
      */
     private void goPPT() {
-        PPTFragment fragment = new PPTFragment();
+        PPTBaseFragment fragment = new PPTBaseFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main, fragment).commit();
     }
 
