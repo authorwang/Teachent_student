@@ -33,6 +33,8 @@ public class TeachentSplashActivity extends Activity {
 
         //初始化LeanCloud
         AVOSCloud.initialize(this,appId,appKey);
+        // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
+        AVOSCloud.setDebugLogEnabled(true);
 //        if (LeanchatUser.getCurrentUser() != null) {
 //            LeanchatUser.getCurrentUser().updateUserInfo();
 //            handler.sendEmptyMessageDelayed(GO_MAIN_MSG, SPLASH_DURATION);

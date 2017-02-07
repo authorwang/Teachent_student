@@ -35,6 +35,7 @@ import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * 主页（考勤）Fragment
@@ -109,52 +110,145 @@ public class HomeFragment extends Fragment {
     /**
      * 考勤信息预加载
      */
-    private void loadPreCheckInData(final Handler handler) {
+    private LinkedList<String> sqlQueue = new LinkedList<>();
+    private Handler xxHandler;
+    private boolean taskRunning = false;
 
 
-        //载入考勤信息
-        for(final String classId:CommonData.classIdList){
-//            Toast.makeText(mView.getContext(),classId,Toast.LENGTH_SHORT).show();
-            Log.d("classId",classId);
-            String studentClassCql = "select studentcheck from studentclass where classid='"+classId+"'";
-            AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                @Override
-                public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                    int studentCheck = avCloudQueryResult.getResults().get(0).getInt("studentcheck");
-                    CommonData.stateACheckIn+=studentCheck;
-                    Log.d("studentCheck",Integer.toString(studentCheck));
-                    Log.d("stateACheckIn",Integer.toString(CommonData.stateACheckIn));
-                    String teacherClassCql = "select teachercheck from teacherclass where classid='"+classId+"'";
-                    AVQuery.doCloudQueryInBackground(teacherClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                        @Override
-                        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                            if(e==null){
-                                int teachercheck = avCloudQueryResult.getResults().get(0).getInt("teachercheck");
-                                Log.d("teachercheck",Integer.toString(teachercheck));
-//                                String s = Integer.toString(teachercheck);
-//                                Toast.makeText(mView.getContext(),s,Toast.LENGTH_SHORT).show();
-                                CommonData.stateBCheckIn+=teachercheck;
-                                Log.d("stateBCheckIn",Integer.toString(CommonData.stateBCheckIn));
-//                                if(i==CommonData.classIdList.size())
-                                    handler.sendEmptyMessage(Constants.DATA_PREPARED);
+    private void startLoadData(){
+        taskRunning = true;
+        final String classId = sqlQueue.poll();
+        if(classId==null){
+            taskRunning = false;
+            return;
+        }
+        String studentClassCql = "select studentcheck from studentclass where classid='"+classId+"' and studentid='"+CommonData.studentId+"'";
+        AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                int studentCheck = avCloudQueryResult.getResults().get(0).getInt("studentcheck");
+                CommonData.stateACheckIn+=studentCheck;
+                Log.d("studentCheck",Integer.toString(studentCheck));
+                Log.d("stateACheckIn",Integer.toString(CommonData.stateACheckIn));
+                String teacherClassCql = "select teachercheck from teacherclass where classid='"+classId+"'";
+                AVQuery.doCloudQueryInBackground(teacherClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                    @Override
+                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                        if(e==null){
+                            int teachercheck = avCloudQueryResult.getResults().get(0).getInt("teachercheck");
+                            Log.d("teachercheck",Integer.toString(teachercheck));
+                            //                                String s = Integer.toString(teachercheck);
+                            //                                Toast.makeText(mView.getContext(),s,Toast.LENGTH_SHORT).show();
+                            CommonData.stateBCheckIn+=teachercheck;
+                            Log.d("stateBCheckIn",Integer.toString(CommonData.stateBCheckIn));
+                            //                                if(i==CommonData.classIdList.size())
+                            xxHandler.sendEmptyMessage(Constants.DATA_PREPARED);
 
-                            }else{
-                                Log.e("error getteacherclass",e.getMessage());
-                            }
-
+                        }else{
+                            Log.e("error getteacherclass",e.getMessage());
                         }
-                    });
-                }
-            });
+                        startLoadData();
+
+                    }
+                });
+            }
+        });
+    }
+    private void loadPreCheckInData(Handler handler) {
+
+        xxHandler = handler;
+
+//        CommonData.stateACheckIn = 0;
+//        CommonData.stateBCheckIn = 0;
+
+        for(final String classId:CommonData.classIdList){
+                Log.d("classId",classId);
+                sqlQueue.offer(classId);
+            }
+        if(!taskRunning){
+            startLoadData();
+        }
+            //            Toast.makeText(mView.getContext(),classId,Toast.LENGTH_SHORT).show();
+//            handler.sendEmptyMessage(Constants.DATA_PREPARED);
+        }
+        //        new Handler().postDelayed(new Runnable() {
+        //            @Override
+        //            public void run() {
+        //                handler.sendEmptyMessage(Constants.DATA_PREPARED);
+        //            }
+        //        },2000);
+
+        /**
+        final String studentCheckCql = "select studentcheck from studentclass where classid in (select classid from studentclass where studentid in (select relatedid from userrole where userid='"+AVUser.getCurrentUser().getObjectId()+"'))";
+        String studentCheckCountCql = "select count(*) from studentclass where classid in (select classid from studentclass where studentid in (select relatedid from userrole where userid='"+AVUser.getCurrentUser().getObjectId()+"'))";
+        String teacherCheckCql = "select teachercheck from teacherclass where classid in (select classid from studentclass where studentid in (select relatedid from userrole where userid='"+AVUser.getCurrentUser().getObjectId()+"'))";
+        String teacherCheckCountCql = "select count(*) from teacherclass where classid in (select classid from studentclass where studentid in (select relatedid from userrole where userid='"+AVUser.getCurrentUser().getObjectId()+"'))";
+        AVQuery.doCloudQueryInBackground(studentCheckCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                final int stuCount = avCloudQueryResult.getCount();
+                AVQuery.doCloudQueryInBackground(studentCheckCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                    @Override
+                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                        for(int i=0;i<stuCount;i++){
+                            CommonData.stateACheckIn += avCloudQueryResult.getResults().get(i).getInt("studentcheck");
+                        }
+                    }
+                });
+
+            }
+        });
+        **/
+
+        /**
+         for(final String classId:CommonData.classIdList){
+         synchronized(this) {
+         Log.d("classId",classId);
+         String studentClassCql = "select studentcheck from studentclass where classid='"+classId+"'";
+         AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+        @Override
+        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+        int studentCheck = avCloudQueryResult.getResults().get(0).getInt("studentcheck");
+        CommonData.stateACheckIn+=studentCheck;
+        Log.d("studentCheck",Integer.toString(studentCheck));
+        Log.d("stateACheckIn",Integer.toString(CommonData.stateACheckIn));
+        String teacherClassCql = "select teachercheck from teacherclass where classid='"+classId+"'";
+        AVQuery.doCloudQueryInBackground(teacherClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
+        @Override
+        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+        if(e==null){
+        int teachercheck = avCloudQueryResult.getResults().get(0).getInt("teachercheck");
+        Log.d("teachercheck",Integer.toString(teachercheck));
+        //                                String s = Integer.toString(teachercheck);
+        //                                Toast.makeText(mView.getContext(),s,Toast.LENGTH_SHORT).show();
+        CommonData.stateBCheckIn+=teachercheck;
+        Log.d("stateBCheckIn",Integer.toString(CommonData.stateBCheckIn));
+        //                                if(i==CommonData.classIdList.size())
+
+
+        }else{
+        Log.e("error getteacherclass",e.getMessage());
+        }
 
         }
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                handler.sendEmptyMessage(Constants.DATA_PREPARED);
-//            }
-//        },2000);
-    }
+        });
+        }
+        });
+         }
+         //            Toast.makeText(mView.getContext(),classId,Toast.LENGTH_SHORT).show();
+         handler.sendEmptyMessage(Constants.DATA_PREPARED);
+
+         }
+         //        new Handler().postDelayed(new Runnable() {
+         //            @Override
+         //            public void run() {
+         //                handler.sendEmptyMessage(Constants.DATA_PREPARED);
+         //            }
+         //        },2000);
+         }
+         */
+        //载入考勤信息
+
 
     /**
      * 初始化二次数据

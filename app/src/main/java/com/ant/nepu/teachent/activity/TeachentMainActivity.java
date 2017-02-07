@@ -241,8 +241,6 @@ public class TeachentMainActivity extends AppCompatActivity
                 super.handleMessage(msg);
                 switch (msg.what){
                     case Constants.FRAGMENT_CHECK_IN:
-                        CommonData.stateACheckIn = 0;
-                        CommonData.stateBCheckIn = 0;
                         goCheckIn();
                         break;
                     case Constants.FRAGMENT_PPT:
@@ -274,6 +272,8 @@ public class TeachentMainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_checkin://考勤
 //                UserInfoUtils.refreshClass(this,handler);
+                CommonData.stateACheckIn = 0;
+                CommonData.stateBCheckIn = 0;
                 goCheckIn();
                 break;
             case R.id.nav_ppt://课件

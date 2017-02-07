@@ -43,10 +43,13 @@ public class CommonData {
     //B类积分
     public static int userCreditB;
     //A类考勤数:已考勤次数
-    public static int stateACheckIn;
+    public static int stateACheckIn = 0;
     //B类考勤数:总共需考勤次数
-    public static  int stateBCheckIn;
+    public static  int stateBCheckIn = 0;
 
+
+    //学生id
+    public static String studentId;
     //班级id列表
     public static ArrayList<String> classIdList = new ArrayList<>();
 

@@ -142,6 +142,7 @@ public class UserInfoUtils {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                 final String studentId = avCloudQueryResult.getResults().get(0).getString("relatedid");
+                CommonData.studentId = studentId;
                 final String studentClassCountCql = "select count(*) from studentclass where studentid='"+studentId+"'";
                 AVQuery.doCloudQueryInBackground(studentClassCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
                     @Override
@@ -154,7 +155,7 @@ public class UserInfoUtils {
                             @Override
                             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                                 if(e==null){
-                                    String s = Integer.toString(studentClassCount);
+//                                    String s = Integer.toString(studentClassCount);
 //                                    Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
                                     for(int i=0;i<studentClassCount;i++){
                                         CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
