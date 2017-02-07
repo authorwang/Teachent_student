@@ -17,6 +17,7 @@ import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.PPTBaseListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.dialog.LoadingDialog;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -34,7 +35,7 @@ public class PPTBaseFragment extends Fragment {
     private View mView;
     private PPTBaseListAdapter adapter;
     private ListView listView;
-
+    private LoadingDialog loadingDialog;
 
     public PPTBaseFragment() {
         // Required empty public constructor
@@ -46,7 +47,8 @@ public class PPTBaseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView =  inflater.inflate(R.layout.fragment_pptbase, container, false);
-
+        loadingDialog = new LoadingDialog(getContext());
+        loadingDialog.show();
         //findViews
         listView = (ListView) mView.findViewById(R.id.lv_frag_base_ppt);
 
@@ -65,6 +67,7 @@ public class PPTBaseFragment extends Fragment {
                                 getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new PPTFragment()).commit();
                             }
                         });
+                        loadingDialog.dismiss();
                         break;
                 }
             }

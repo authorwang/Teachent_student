@@ -2,6 +2,8 @@
     <string name="app_name">Teachent</string>
     <string name="title_activity_teachent_login">登录</string>
     <string name="title_activity_teachent_initial">初次使用</string>
+    <string name="message_download_dialog">下载中...</string>
+    <string name="message_load_dialog">加载中...</string>
 
 
     <!-- TeachentInitialActivity-->

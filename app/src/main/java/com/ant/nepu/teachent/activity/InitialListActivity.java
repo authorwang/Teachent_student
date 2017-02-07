@@ -15,6 +15,7 @@ import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.InitialListListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.dialog.LoadingDialog;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -26,12 +27,13 @@ public class InitialListActivity extends AppCompatActivity {
     private InitialListListAdapter adapter;
     private Button btn_cancel;
     private TextView tv_title;
-
-
+    private LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_list);
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.show();
 
         listView = (ListView) findViewById(R.id.lv_activity_initial_items);
         btn_cancel = (Button) findViewById(R.id.btn_activity_initial_list_cancel);
@@ -100,6 +102,8 @@ public class InitialListActivity extends AppCompatActivity {
 
                                 }
                             });
+                            loadingDialog.dismiss();
+
                         }
                         else{
                             Log.e("error getSchool:",e.getMessage());
@@ -154,6 +158,8 @@ public class InitialListActivity extends AppCompatActivity {
 
                                 }
                             });
+                            loadingDialog.dismiss();
+
                         }
                        else{
                             Log.e("error getSchool:",e.getMessage());

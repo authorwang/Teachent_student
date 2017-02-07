@@ -13,6 +13,7 @@ import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.InitialListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.dialog.LoadingDialog;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 
@@ -22,12 +23,14 @@ public class TeachentInitialActivity extends AppCompatActivity {
 
     private ListView listView;
     private InitialListAdapter adapter;
+    private LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachent_initial);
 
         listView = (ListView) findViewById(R.id.lv_activity_settings);
+        loadingDialog = new LoadingDialog(this);
         loadData();
     }
 
@@ -95,6 +98,7 @@ public class TeachentInitialActivity extends AppCompatActivity {
                             Toast.makeText(TeachentInitialActivity.this,getString(R.string.error_initial_finish_setting_empty),Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        loadingDialog.show();
                         //更新相关数据库
                         //更新student表
                         AVObject student = new AVObject("student");
@@ -112,15 +116,17 @@ public class TeachentInitialActivity extends AppCompatActivity {
                         studentclass.put("studentid",CommonData.initialSelectedNo);
                         studentclass.put("classid",CommonData.initialSelectedClassId);
                         studentclass.saveInBackground();
-                        //更新initial标记
+                        //更新_User表
                         AVObject _user = AVObject.createWithoutData("_User",AVUser.getCurrentUser().getObjectId());
                         _user.put("isInitial",true);
                         _user.put("userrealname",CommonData.initialSelectedName);
+                        _user.put("schoolid",CommonData.initialSelectedSchoolId);
                         _user.saveInBackground();
                         AVUser.logOut();
                         Intent intent_finish = new Intent(TeachentInitialActivity.this,TeachentLoginActivity.class);
                         startActivity(intent_finish);
                         Toast.makeText(TeachentInitialActivity.this,getString(R.string.tip_initial_finish_setting_relogin),Toast.LENGTH_LONG).show();
+                        loadingDialog.dismiss();
                         finish();
                         break;
                 }

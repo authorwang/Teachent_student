@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.dialog.LoadingDialog;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -50,6 +51,7 @@ public class HomeFragment extends Fragment {
     private TextView tv_username;
     private TextView tv_greeting;
     private String greeting_Text;
+    private LoadingDialog loadingDialog;
 
     /**
      * PieChart数据
@@ -69,7 +71,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mView=inflater.inflate(R.layout.fragment_home, container, false);
+        loadingDialog = new LoadingDialog(getContext());
+        loadingDialog.show();
 
         // Inflate the layout for this fragment
         final Handler handler = new Handler(){
@@ -81,13 +85,14 @@ public class HomeFragment extends Fragment {
                         initSecondaryData();
                         //设置控件
                         setControls();
+                        loadingDialog.dismiss();
                         break;
                 }
             }
         };
 
         loadPreCheckInData(handler);
-        mView=inflater.inflate(R.layout.fragment_home, container, false);
+
         //findViews
         mChart = (PieChart) mView.findViewById(R.id.fragment_check_in_chart_times);
         tv_greeting = (TextView) mView.findViewById(R.id.tv_frag_home_greeting);

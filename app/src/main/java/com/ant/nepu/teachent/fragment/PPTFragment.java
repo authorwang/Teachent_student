@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.PPTListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
+import com.ant.nepu.teachent.dialog.DownloadingDialog;
+
 import java.util.HashMap;
 
 /**
@@ -37,10 +39,15 @@ public class PPTFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
+
         result = "";//测试显示结果置空
 
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_ppt, container, false);
+
+
 
         //findView
         listView = (ListView) mView.findViewById(R.id.lv_frag_ppt);

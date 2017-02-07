@@ -112,6 +112,7 @@ public class TeachentMainActivity extends AppCompatActivity
         if (!CommonData.isInitial) {
             startActivity(new Intent(TeachentMainActivity.this,TeachentInitialActivity.class));
             TeachentMainActivity.this.finish();
+            return;
         }
 //        // 显示欢迎界面
 //        goCheckIn();
