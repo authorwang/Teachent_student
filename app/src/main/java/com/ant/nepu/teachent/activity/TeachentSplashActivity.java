@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.ant.nepu.teachent.R;
+import com.ant.nepu.teachent.util.AVCloudUtils;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 
@@ -28,11 +29,7 @@ public class TeachentSplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachent_splash);
 
-        String appId = "RzID2Ekq4Ys2noDDUfQ0bM4T-gzGzoHsz";
-        String appKey = "BC8eOnrXGpDK3ITcHmLALGOR";
-
-        //初始化LeanCloud
-        AVOSCloud.initialize(this,appId,appKey);
+        AVCloudUtils.registerApp(this);
         // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
         AVOSCloud.setDebugLogEnabled(true);
 //        if (LeanchatUser.getCurrentUser() != null) {

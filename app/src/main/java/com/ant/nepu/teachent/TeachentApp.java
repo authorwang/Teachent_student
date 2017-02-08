@@ -2,7 +2,7 @@ package com.ant.nepu.teachent;
 
 import android.app.Application;
 
-import com.ant.nepu.teachent.util.Utils;
+
 import com.avos.avoscloud.AVOSCloud;
 
 /**
@@ -16,8 +16,8 @@ public class TeachentApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        ctx = this;
-//        Utils.fixAsyncTaskBug();
+
+
 
 
 

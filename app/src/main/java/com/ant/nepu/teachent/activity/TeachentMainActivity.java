@@ -1,8 +1,6 @@
 package com.ant.nepu.teachent.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
@@ -28,27 +25,10 @@ import com.ant.nepu.teachent.fragment.ContactFragment;
 import com.ant.nepu.teachent.fragment.HomeFragment;
 import com.ant.nepu.teachent.fragment.HomeworkFragment;
 import com.ant.nepu.teachent.fragment.InformationFragment;
-import com.ant.nepu.teachent.fragment.LeaveMessageDetailFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 import com.ant.nepu.teachent.fragment.PPTBaseFragment;
-import com.ant.nepu.teachent.fragment.PPTFragment;
-import com.ant.nepu.teachent.fragment.TestLCFragment;
-import com.ant.nepu.teachent.util.ImageUtils;
 import com.ant.nepu.teachent.util.UserInfoUtils;
-import com.ant.nepu.teachent.util.Utils;
-import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.CloudQueryCallback;
-import com.avos.avoscloud.GetCallback;
-import com.avos.avoscloud.GetDataCallback;
-import com.avos.avoscloud.LogUtil;
-import com.avos.avoscloud.okhttp.internal.framed.FrameReader;
-import com.tencent.qc.stat.common.User;
-
 import java.util.ArrayList;
 
 /**
@@ -57,8 +37,6 @@ import java.util.ArrayList;
  */
 public class TeachentMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
 
     /**
      * UI组件
@@ -114,10 +92,13 @@ public class TeachentMainActivity extends AppCompatActivity
             TeachentMainActivity.this.finish();
             return;
         }
-//        // 显示欢迎界面
-//        goCheckIn();
-        //预加载用户数据
         loadUserData(handler);
+        // 显示欢迎界面
+        CommonData.stateACheckIn = 0;
+        CommonData.stateBCheckIn = 0;
+        goCheckIn();
+        //预加载用户数据
+
     }
 
 
@@ -158,8 +139,11 @@ public class TeachentMainActivity extends AppCompatActivity
         UserInfoUtils.refreshAvatar(this);
         handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
 
+
+
+//        goCheckIn();
         //写入班级CommonData
-        UserInfoUtils.refreshClass(this,handler);
+//        UserInfoUtils.refreshClass(this,handler);
     }
 
     /**

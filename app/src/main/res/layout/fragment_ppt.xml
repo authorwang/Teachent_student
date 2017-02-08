@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:padding="@dimen/fab_margin"
             android:id="@+id/rl_frag_ppt_title">
             <TextView
@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/frag_ppt_btn_dl_selector"
                 style="@style/fragment_ppt_button"
-                android:id="@+id/btn_frag_ppt_download"
+                android:id="@+id/btn_frag_ppt_back"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:text="@string/fragment_ppt_button_text"

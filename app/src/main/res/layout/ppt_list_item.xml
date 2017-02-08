@@ -6,14 +6,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/iv_frag_ppt_icon" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,10 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cb_frag_ppt"
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/iv_frag_download"
+                android:src="@mipmap/icon_download"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 />

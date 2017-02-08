@@ -136,43 +136,7 @@ public class UserInfoUtils {
         return true;
     }
     public static boolean refreshClass(final Context context, final Handler handler){
-        String userid = AVUser.getCurrentUser().getObjectId();
-        String userroleCql = "select relatedid from userrole where userid='"+userid+"'";
-        AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
-            @Override
-            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                final String studentId = avCloudQueryResult.getResults().get(0).getString("relatedid");
-                CommonData.studentId = studentId;
-                final String studentClassCountCql = "select count(*) from studentclass where studentid='"+studentId+"'";
-                AVQuery.doCloudQueryInBackground(studentClassCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                    @Override
-                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                        final int studentClassCount = avCloudQueryResult.getCount();
-//                        String s = Integer.toString(studentClassCount);
-//                        Toast.makeText(TeachentMainActivity.this,s,Toast.LENGTH_SHORT).show();
-                        String studentClassCql = "select classid from studentclass where studentid='"+studentId+"'";
-                        AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                            @Override
-                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                                if(e==null){
-//                                    String s = Integer.toString(studentClassCount);
-//                                    Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
-                                    for(int i=0;i<studentClassCount;i++){
-                                        CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
-//                                        Toast.makeText(context,avCloudQueryResult.getResults().get(i).getString("classid"),Toast.LENGTH_SHORT).show();
-                                    }
-                                    handler.sendEmptyMessage(Constants.FRAGMENT_HOME);
-                                }else{
-                                    Log.e("error:studentclass",e.getMessage());
-                                    Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                                }
 
-                            }
-                        });
-                    }
-                });
-            }
-        });
         return true;
     }
 

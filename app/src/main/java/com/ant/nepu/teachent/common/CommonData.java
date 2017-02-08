@@ -57,8 +57,10 @@ public class CommonData {
 
 
 
+    //课件id列表
+    public static ArrayList<String> pptIdList = new ArrayList<>();
     //课件名称列表
-    public static String[] pptNameList;
+    public static ArrayList<String> pptNameList = new ArrayList<>();
     //课件班级编号
     public static String  pptClassNo;
 
