@@ -1,92 +1,69 @@
 package com.ant.nepu.teachent.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
-import com.ant.nepu.teachent.fragment.HomeworkDetailFragment;
-import com.ant.nepu.teachent.fragment.HomeworkFragment;
 
 /**
- * 作业RecyclerView自定义适配器
- * Created by wang1 on 2017/1/11.
+ * 作业-作业列表ListView自定义适配器
+ * Created by wang1 on 2017/1/9.
  */
 
-public class HomeworkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class HomeworkListAdapter extends BaseAdapter {
 
-    private Context context;
-    private String[] homeworkList;
-    private LayoutInflater layoutInflater;
-    private HomeworkFragment fragment;
+    private Context context;//上下文
 
-    public HomeworkListAdapter(Context context, String[] homeworkList,HomeworkFragment fragment) {
+
+    public HomeworkListAdapter(Context context){
         this.context = context;
-        this.homeworkList = homeworkList;
-        this.fragment = fragment;
-        layoutInflater = LayoutInflater.from(context);
+
+    }
+
+
+    @Override
+    public int getCount() {
+        return CommonData.homeworkNameList.size();
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.homework_list_item,parent,false));
+    public Object getItem(int position) {
+        return CommonData.homeworkNameList.get(position);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public long getItemId(int position) {
+        return position;
+    }
 
-        ViewHolder mHolder = (ViewHolder) holder;
-        bindItem(mHolder.tv,mHolder.iv,position);
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder vh;
+        if(convertView==null){
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(R.layout.homework_list_item,null);
+            vh = new ViewHolder();
+            vh.tv_id = (TextView) convertView.findViewById(R.id.tv_frag_homework_id);
+            vh.tv_name = (TextView) convertView.findViewById(R.id.tv_frag_homework_name);
+            convertView.setTag(vh);
+        }else{
+            vh = (ViewHolder) convertView.getTag();
+        }
+        vh.tv_id.setText(CommonData.homeworkIdList.get(position));
+        vh.tv_name.setText(CommonData.homeworkNameList.get(position));
+        return convertView;
     }
 
     /**
-     * 绑定一条数据
-     * @param
-     * @param tv
-     * @param iv
+     * 用以保存第一次查找的组件，避免重复查找
      */
-    private void bindItem(TextView tv, ImageView iv, int position) {
-        tv.setText(homeworkList[position]);
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return homeworkList.length;
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv;
-        ImageView iv;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.tv_frag_homework_text);
-            iv = (ImageView) itemView.findViewById(R.id.iv_frag_homework_icon);
-            itemView.findViewById(R.id.cv_frag_homework).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showHomeworkDetails(getPosition());
-                }
-            });
-        }
-
-        /**
-         * 显示作业详情
-         * @param position
-         */
-        private void showHomeworkDetails(int position) {
-            Toast.makeText(context,"显示作业详情"+homeworkList[position],Toast.LENGTH_SHORT).show();
-            CommonData.homeworkPosition =position;
-            fragment.getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new HomeworkDetailFragment()).commit();
-        }
+    static class ViewHolder{
+        TextView tv_id;
+        TextView tv_name;
     }
 }
-
-

@@ -64,12 +64,22 @@ public class CommonData {
     //课件班级编号
     public static String  pptClassNo;
 
+    //作业id列表
+    public static ArrayList<String> homeworkIdList = new ArrayList<>();
     //作业名称列表
-    public static String[] homeworkList;
-    //作业详情题组列表
-    public static String[] homeworkDetailList;
-    //作业项目对应位置
+    public static ArrayList<String> homeworkNameList = new ArrayList<>();
+    //作业班级编号
+    public static String homeworkClassNo;
+    //作业详情位置标记
     public static int homeworkPosition;
+    //作业详情编号
+    public static String homeworkNo;
+    //作业详情图片
+    public static Bitmap homeworkDetailBitmap;
+    //作业我的答案图片
+    public static Bitmap homeworkAnswerBitmap;
+    //作业提交标记
+    public static boolean hasSubmit = false;
 
     //联系老师姓名列表
     public static String[] contactNameList;

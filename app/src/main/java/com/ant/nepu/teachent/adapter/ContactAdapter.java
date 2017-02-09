@@ -5,16 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
-import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
-import com.ant.nepu.teachent.fragment.ContactFragment;
-import com.ant.nepu.teachent.fragment.HomeworkDetailFragment;
 
 /**
  * 联系老师列表自定义适配器

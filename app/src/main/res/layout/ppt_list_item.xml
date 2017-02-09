@@ -17,6 +17,7 @@
             android:id="@+id/tv_frag_ppt_text"
             style="@style/fragment_ppt_text"
             android:text="高等数学"
+            android:textSize="18dp"
             android:layout_marginLeft="@dimen/listview_ppt_tv_text_margin"
             android:textAlignment="center"/>
         <RelativeLayout

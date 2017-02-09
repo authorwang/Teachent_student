@@ -23,6 +23,7 @@ import com.ant.nepu.teachent.common.Constants;
 import com.ant.nepu.teachent.fragment.AboutUsFragment;
 import com.ant.nepu.teachent.fragment.ContactFragment;
 import com.ant.nepu.teachent.fragment.HomeFragment;
+import com.ant.nepu.teachent.fragment.HomeworkBaseFragment;
 import com.ant.nepu.teachent.fragment.HomeworkFragment;
 import com.ant.nepu.teachent.fragment.InformationFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
@@ -366,7 +367,7 @@ public class TeachentMainActivity extends AppCompatActivity
      */
     private void goHomework() {
 //        Toast.makeText(TeachentMainActivity.this,getString(R.string.drawer_menu_item_learn_homework),Toast.LENGTH_SHORT).show();
-        HomeworkFragment fragment = new HomeworkFragment();
+        HomeworkBaseFragment fragment = new HomeworkBaseFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main, fragment).commit();
     }
 

@@ -19,6 +19,7 @@ public class  Constants {
     public static final int PRE_DATA_PREPARED = 0x2;
 
 
+
     /**
      * TeachentMainActivity更新UI
      */
@@ -58,4 +59,12 @@ public class  Constants {
 
     public static String frag_leave_message_cv_text_mid_word = "说：";
 
+    /**
+     * HomeworkDetailFragment 参数
+     */
+    public static final int RESULT_CANCELED = 0x1;
+    public static final int IMAGE_REQUEST_CODE = 0x2;
+    public static final int CAMERA_REQUEST_CODE = 0x3;
+    public static final int RESULT_REQUEST_CODE = 0x4;
+    public static final int ANSWER_SUBMITTED = 0x5;
 }

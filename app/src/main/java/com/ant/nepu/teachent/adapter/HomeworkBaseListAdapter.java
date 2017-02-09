@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.ant.nepu.teachent.R;
@@ -14,18 +13,18 @@ import com.ant.nepu.teachent.common.CommonData;
 import java.util.HashMap;
 
 /**
- * 课件-班级列表ListView自定义适配器
+ * 作业ListView自定义适配器
  * Created by wang1 on 2017/1/9.
  */
 
-public class PPTBaseListAdapter extends BaseAdapter {
+public class HomeworkBaseListAdapter extends BaseAdapter {
 
     private String[] texts;//数据显示文本数组
     private Context context;//上下文
 
 //    private int[] icons;
 
-    public PPTBaseListAdapter(Context context){
+    public HomeworkBaseListAdapter(Context context){
         this.context = context;
     }
 
@@ -50,10 +49,10 @@ public class PPTBaseListAdapter extends BaseAdapter {
         ViewHolder vh;
         if(convertView==null){
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.ppt_base_list_item,null);
+            convertView = inflater.inflate(R.layout.homework_base_list_item,null);
             vh = new ViewHolder();
-            vh.tv_id = (TextView) convertView.findViewById(R.id.tv_frag_ppt_base_id);
-            vh.tv_name = (TextView) convertView.findViewById(R.id.tv_frag_ppt_base_classname);
+            vh.tv_id = (TextView) convertView.findViewById(R.id.tv_frag_homework_base_id);
+            vh.tv_name = (TextView) convertView.findViewById(R.id.tv_frag_homework_base_classname);
             convertView.setTag(vh);
         }else{
             vh = (ViewHolder) convertView.getTag();

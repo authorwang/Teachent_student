@@ -14,7 +14,7 @@ import com.ant.nepu.teachent.common.CommonData;
 import java.util.HashMap;
 
 /**
- * 课件ListView自定义适配器
+ * 课件-课件列表ListView自定义适配器
  * Created by wang1 on 2017/1/9.
  */
 

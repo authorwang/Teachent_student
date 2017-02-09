@@ -9,41 +9,86 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_fragment_homework_detail"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/rl_frag_homework_title"/>
+            android:layout_below="@+id/rl_frag_base_homework_title">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text=""
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:id="@+id/tv_frag_homework_detail_name"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_frag_homework_detail"
+
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:text="我的答案"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:id="@+id/tv_frag_homework_answer"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_frag_homework_answer"
+                    android:scaleType="centerCrop"
+                    />
+                <Button
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_homework_detail_button_text"
+                    style="@style/fragment_ppt_button"
+                    android:background="@drawable/frag_ppt_btn_dl_selector"
+                    android:id="@+id/btn_frag_homework_detail_submit"
+                    />
+            </LinearLayout>
+        </ScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:padding="@dimen/fab_margin"
-            android:id="@+id/rl_frag_homework_title"
+            android:id="@+id/rl_frag_base_homework_title"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_frag_ppt_title"
+                android:id="@+id/tv_frag_homework_title"
                 android:text="@string/fragment_homework_detail_title"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 style="@style/fragment_ppt_title"/>
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/frag_ppt_btn_dl_selector"
                 style="@style/fragment_ppt_button"
-                android:id="@+id/btn_frag_homework_detail_close"
-                android:text="@string/fragment_homework_detail_close_button_text"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true" />
-
-
+                android:id="@+id/btn_frag_homework_detail_back"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/fragment_ppt_button_text"
+                />
         </RelativeLayout>
 
 
     </RelativeLayout>
+
+
 </FrameLayout>
