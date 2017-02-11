@@ -3,6 +3,8 @@ package com.ant.nepu.teachent.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,15 @@ import android.view.ViewGroup;
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.ContactAdapter;
 import com.ant.nepu.teachent.common.CommonData;
+import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.dialog.LoadingDialog;
+import com.avos.avoscloud.AVCloudQueryResult;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CloudQueryCallback;
+
+import java.util.ArrayList;
 
 /**
  * 联系教师Fragment
@@ -22,6 +33,7 @@ public class ContactFragment extends Fragment {
     private View mView;
     private RecyclerView rv;
     private ContactAdapter contactAdapter;
+    private LoadingDialog loadingDialog;
 
     public ContactFragment() {
         // Required empty public constructor
@@ -33,58 +45,85 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_contact, container, false);
-
+        loadingDialog = new LoadingDialog(mView.getContext());
+        loadingDialog.show();
         //findViews
         rv = (RecyclerView) mView.findViewById(R.id.rv_fragment_contact);
+
+
+
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case Constants.DATA_PREPARED:
+                        contactAdapter = new ContactAdapter(mView.getContext());
+                        rv.setLayoutManager(new LinearLayoutManager(mView.getContext()));
+                        rv.setAdapter(contactAdapter);
+                        loadingDialog.dismiss();
+                        break;
+                }
+
+            }
+        };
 
         /**
          * RecyclerView加载数据
          */
-        loadData();
+        loadData(handler);
         return mView;
     }
 
     /**
      * RecyclerView加载数据
      */
-    private void loadData() {
-        //测试数据
-        String[] contactNameList = {
-                "张三",
-                "李四",
-                "王五",
-                "赵六",
-                "孙七",
-                "钱八",
-                "周九",
-                "吴十",
-                "冯一",
-                "陈二",
-                "卫三",
-                "沈四",
-        };
+    private void loadData(final Handler handler) {
+        CommonData.contactTeacherNameList = new ArrayList<>();
+        CommonData.contactTeacherTelList = new ArrayList<>();
+       String teacherCountCql = "select count(*) from teacher where teacherid in" +
+               "(select teacherid from teacherclass where classid in" +
+               "(select classid from studentclass where studentid=(" +
+               "select relatedid from userrole where rolename='student' and userid='"+ AVUser.getCurrentUser().getObjectId()+"')))";
+        AVQuery.doCloudQueryInBackground(teacherCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                if(e==null){
+                    final int teacherCount = avCloudQueryResult.getCount();
+                    String teacherNameCql = "select teachername from teacher where teacherid in" +
+                            "(select teacherid from teacherclass where classid in" +
+                            "(select classid from studentclass where studentid=(" +
+                            "select relatedid from userrole where rolename='student' and userid='"+ AVUser.getCurrentUser().getObjectId()+"')))";
+                    AVQuery.doCloudQueryInBackground(teacherNameCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                        @Override
+                        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                            if(e==null){
+                                for(int i=0;i<teacherCount;i++){
+                                    CommonData.contactTeacherNameList.add(avCloudQueryResult.getResults().get(i).getString("teachername"));
+                                }
+                                String teacherTelCql = "select teachertel from teacher where teacherid in" +
+                                        "(select teacherid from teacherclass where classid in" +
+                                        "(select classid from studentclass where studentid=(" +
+                                        "select relatedid from userrole where rolename='student' and userid='"+ AVUser.getCurrentUser().getObjectId()+"')))";
+                                AVQuery.doCloudQueryInBackground(teacherTelCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                                    @Override
+                                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                                        if(e==null){
+                                            for(int i=0;i<teacherCount;i++){
+                                                CommonData.contactTeacherTelList.add(avCloudQueryResult.getResults().get(i).getString("teachertel"));
+                                            }
+                                            handler.sendEmptyMessage(Constants.DATA_PREPARED);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
-        String[] contactTelList = {
-                "13902070000",
-                "13902070001",
-                "13902070002",
-                "13902070003",
-                "13902070004",
-                "13902070005",
-                "13902070006",
-                "13902070007",
-                "13902070008",
-                "13902070009",
-                "13902070010",
-                "13902070011",
-        };
 
-        CommonData.contactNameList = contactNameList;
-        CommonData.contactTelList = contactTelList;
-
-        contactAdapter = new ContactAdapter(mView.getContext(),CommonData.contactNameList,CommonData.contactTelList);
-        rv.setLayoutManager(new LinearLayoutManager(mView.getContext()));
-        rv.setAdapter(contactAdapter);
     }
 
 }

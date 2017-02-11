@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/btn_activity_initial_list_cancel"
                 android:layout_alignBottom="@+id/btn_activity_initial_list_cancel"
-                android:text="@string/fragment_information_text_title"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 

@@ -49,7 +49,7 @@
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/rl_frag_information_arrow"
         android:gravity="center_vertical"
-        android:text="张三李四王五赵六"
+
         android:textSize="18dp" />
 
 

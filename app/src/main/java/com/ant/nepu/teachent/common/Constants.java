@@ -18,7 +18,11 @@ public class  Constants {
     public static final int DATA_PREPARED = 0x1;
     public static final int PRE_DATA_PREPARED = 0x2;
 
-
+    /**
+     * TeachentLoginActivity 同步登录过程
+     */
+    public static final int LOGIN_PROCESS = 0x1;
+    public static final int REGISITER_PROCESS = 0x2;
 
     /**
      * TeachentMainActivity更新UI

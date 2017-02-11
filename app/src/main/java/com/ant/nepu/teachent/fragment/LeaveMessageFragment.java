@@ -2,6 +2,8 @@ package com.ant.nepu.teachent.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +14,17 @@ import android.view.ViewGroup;
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.LeaveMessageListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
+import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.dialog.LoadingDialog;
+import com.avos.avoscloud.AVCloudQueryResult;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.CloudQueryCallback;
+
+import java.util.ArrayList;
 
 /**
- *留言板Fragment
- *
- *
+ * 留言板Fragment
  */
 public class LeaveMessageFragment extends Fragment {
 
@@ -26,6 +34,7 @@ public class LeaveMessageFragment extends Fragment {
     View mView;
     private RecyclerView recyclerView;
     private LeaveMessageListAdapter leaveMessageListAdapter;
+    private LoadingDialog loadingDialog;
 
     public LeaveMessageFragment() {
         // Required empty public constructor
@@ -36,77 +45,71 @@ public class LeaveMessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       mView =  inflater.inflate(R.layout.fragment_leave_message, container, false);
-
+        mView = inflater.inflate(R.layout.fragment_leave_message, container, false);
+        loadingDialog = new LoadingDialog(mView.getContext());
+        loadingDialog.show();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case Constants.DATA_PREPARED:
+                        leaveMessageListAdapter = new LeaveMessageListAdapter(mView.getContext(), LeaveMessageFragment.this);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
+                        recyclerView.setAdapter(leaveMessageListAdapter);
+                        loadingDialog.dismiss();
+                        break;
+                }
+            }
+        };
         //findViews
         recyclerView = (RecyclerView) mView.findViewById(R.id.rv_fragment_leave_message);
 
         /**
          * recyclerView加载数据
          */
-        loadData();
+        loadPreData(handler);
         return mView;
     }
 
     /**
      * recyclerView加载数据
      */
-    private void loadData() {
-        //测试数据
-        String[] leaveMessageNameList = {
-                "张三",
-                "李四",
-                "王五",
-                "赵六",
-                "孙七",
-                "钱八",
-                "周九",
-                "吴十",
-                "冯一",
-                "陈二",
-                "卫三",
-                "沈四",
-        };
+    private void loadPreData(final Handler handler) {
+        CommonData.leaveMessageNameList = new ArrayList<>();
+        CommonData.leaveMessageContent = new ArrayList<>();
+        String leaveMessageNameCountCql = "select count(*) from _User where objectId in " +
+                "(select userid from leavemessage)";
+        AVQuery.doCloudQueryInBackground(leaveMessageNameCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                if(e==null){
+                    final int leaveMessageCount = avCloudQueryResult.getCount();
+                    String leaveMessageNameCql = "select userrealname from _User where objectId in" +
+                            "(select userid from leavemessage)";
+                    AVQuery.doCloudQueryInBackground(leaveMessageNameCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                        @Override
+                        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                            for(int i=0;i<leaveMessageCount;i++){
+                                CommonData.leaveMessageNameList.add(avCloudQueryResult.getResults().get(i).getString("userrealname"));
+                            }
+                            String leaveMessageContentCql = "select messagecontent from leavemessage";
+                            AVQuery.doCloudQueryInBackground(leaveMessageContentCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                                @Override
+                                public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                                    for(int i=0;i<leaveMessageCount;i++){
+                                        CommonData.leaveMessageContent.add(avCloudQueryResult.getResults().get(i).getString("messagecontent"));
+                                    }
+                                    handler.sendEmptyMessage(Constants.DATA_PREPARED);
+                                }
+                            });
+                        }
+                    });
 
-        String[] leaveMessageSimpleTextList = {
+                }
 
-                "有山无水难成景，有酒无朋难聚欢；曾经沧海...",
-                "露水的晶莹是对你的眷恋，霜花的曼妙是对你...",
-                "用微笑装作不在意你的嘲笑，不关心你的离去...",
-                "孤单时，友谊是一柄利剑，助你披荆斩棘；迷...",
-                "别把分手说得那么好听，再怎么好听心还是会...",
-                "我很想告诉你。我好想你。可是我怕得到的只...",
-                "没有经历过的人，没有对于他的意义。",
-                "剪不断，理还乱，是离愁。",
-                "妄想去留住原本应该消失的人和事，其实是一...",
-                "因为不曾相识，所以也不曾悲伤。更不曾快...",
-                "有时候，放弃一些东西才能得到一些什么，...",
-                "你对我很好，很爱我，很呵护我，我谢谢你...",
-        };
-
-        String[] leaveMessageDetailTextList = {
-
-                "有山无水难成景，有酒无朋难聚欢；曾经沧海成桑田，情意交心亘不变；红梅飘香话思念，惹落雪花两三片；大好时光多缠绵，愿你快乐每一天！",
-                "露水的晶莹是对你的眷恋，霜花的曼妙是对你的期盼，飞雪的覆盖是欣慰一年的平安，亲爱的朋友，友谊的长久牵着流年，情意的甘甜陈酿青春的诺言，祝愿友谊地久天长。",
-                "用微笑装作不在意你的嘲笑，不关心你的离去。",
-                "孤单时，友谊是一柄利剑，助你披荆斩棘；迷茫时，朋友是一盏明灯，为你点亮心灵；疲乏时，祝福是一弯山泉，让你净化心灵。每天把好运装满，开心前行。",
-                "别把分手说得那么好听，再怎么好听心还是会痛的。",
-                "我很想告诉你。我好想你。可是我怕得到的只是一个简单的回答“哦”字。",
-                "没有经历过的人，没有对于他的意义。",
-                "剪不断，理还乱，是离愁。",
-                "妄想去留住原本应该消失的人和事，其实是一种悲剧。",
-                "因为不曾相识，所以也不曾悲伤。更不曾快乐过。",
-                "有时候，放弃一些东西才能得到一些什么，得到了以后又想再得到放弃的那些。",
-                "你对我很好，很爱我，很呵护我，我谢谢你。但不知道从什么时候开始，你就慢慢地不在乎我了，我到底做错什么了，以至于你不要我了？我可是你的，脸啊！",
-        };
-
-        CommonData.leaveMessageNameList = leaveMessageNameList;
-        CommonData.leaveMessageSimpleTextList = leaveMessageSimpleTextList;
-        CommonData.leaveMessageDetailTextList = leaveMessageDetailTextList;
-
-        leaveMessageListAdapter = new LeaveMessageListAdapter(mView.getContext(),leaveMessageNameList,leaveMessageSimpleTextList,this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
-        recyclerView.setAdapter(leaveMessageListAdapter);
+            }
+        });
 
 
     }

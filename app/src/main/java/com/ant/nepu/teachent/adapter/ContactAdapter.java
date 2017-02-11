@@ -1,6 +1,12 @@
 package com.ant.nepu.teachent.adapter;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
+import com.ant.nepu.teachent.activity.TeachentMainActivity;
+import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
 
 /**
@@ -20,14 +28,10 @@ import com.ant.nepu.teachent.common.Constants;
 public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private String[] contactNameList;
-    private String[] contactTelList;
     private LayoutInflater layoutInflater;
 
-    public ContactAdapter(Context context, String[] contactNameList, String[] contactTelList) {
+    public ContactAdapter(Context context) {
         this.context = context;
-        this.contactNameList = contactNameList;
-        this.contactTelList = contactTelList;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -52,14 +56,14 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @param position
      */
     private void bindItem(TextView tv_name, TextView tv_tel, ImageView iv, int position) {
-        tv_name.setText(Constants.frag_contact_cv_name_title+contactNameList[position]);
-        tv_tel.setText(Constants.frag_contact_cv_tel_title+contactTelList[position]);
+        tv_name.setText(Constants.frag_contact_cv_name_title+ CommonData.contactTeacherNameList.get(position));
+        tv_tel.setText(Constants.frag_contact_cv_tel_title+CommonData.contactTeacherTelList.get(position));
     }
 
 
     @Override
     public int getItemCount() {
-        return contactNameList.length;
+        return CommonData.contactTeacherNameList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,7 +89,31 @@ public class ContactAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
          * 拨打联系电话
          */
         private void dialContactTel(int position) {
-            Toast.makeText(context,"拨打电话："+contactTelList[position],Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"拨打电话："+contactTelList[position],Toast.LENGTH_SHORT).show();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(context.checkSelfPermission(Manifest.permission.CALL_PHONE)== PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                            + CommonData.contactTeacherTelList.get(position)));
+                    context.startActivity(intent);
+                }else{
+                    Toast.makeText(context,"请先获取拨打电话权限！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }else{
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+                        + CommonData.contactTeacherTelList.get(position)));
+                context.startActivity(intent);
+            }
+
         }
+
+    }
+
+    /**
+     * 调用电话拨打
+     */
+    private void callPhone(int position) {
+
     }
 }

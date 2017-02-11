@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_check_in_tv_greeting_margin"
                 android:layout_marginTop="@dimen/fragment_check_in_tv_greeting_margin"
-                android:text="问候语" />
+                 />
 
             <TextView
                 android:id="@+id/tv_frag_home_nickname"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_check_in_tv_greeting_margin"
                 android:layout_marginTop="@dimen/fragment_check_in_tv_greeting_margin"
-                android:text="学生昵称！" />
+                 />
 
         </LinearLayout>
 

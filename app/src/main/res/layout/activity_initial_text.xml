@@ -33,7 +33,7 @@
                 android:layout_alignBaseline="@+id/btn_activity_initial_text_save"
                 android:layout_alignBottom="@+id/btn_activity_initial_text_save"
                 android:layout_centerHorizontal="true"
-                android:text="@string/fragment_information_text_title" />
+                 />
 
             <Button
                 android:id="@+id/btn_activity_initial_text_save"

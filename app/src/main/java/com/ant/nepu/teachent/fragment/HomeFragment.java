@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment {
     private void setControls() {
         //设置Textview
         tv_greeting.setText(greeting_Text);
-        tv_username.setText(CommonData.userName);
+        tv_username.setText(CommonData.userName+"！");
         //设置pieChart
         setPieChart();
     }

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class CommonData {
 
+    public static boolean hasLogin = false;
+    public static boolean hasRegistered = false;
     public static String[] initialSchoolId;
     public static String[] initialSchoolName;
     public static String[] initialClassId;
@@ -81,17 +83,18 @@ public class CommonData {
     //作业提交标记
     public static boolean hasSubmit = false;
 
+
     //联系老师姓名列表
-    public static String[] contactNameList;
+    public static ArrayList<String> contactTeacherNameList = new ArrayList<>();
     //联系老师电话列表
-    public static String[] contactTelList;
+    public static ArrayList<String> contactTeacherTelList = new ArrayList<>();
+
+
 
     //留言板姓名列表
-    public static String[] leaveMessageNameList;
-    //留言板简略文本列表
-    public static String[] leaveMessageSimpleTextList;
-    //留言板详情文本列表
-    public static String[] leaveMessageDetailTextList;
+    public static ArrayList<String> leaveMessageNameList = new ArrayList<>();
+    //留言板留言信息列表
+    public static ArrayList<String> leaveMessageContent = new ArrayList<>();
     //留言板项目对应位置
     public static int leaveMessagePosition;
 

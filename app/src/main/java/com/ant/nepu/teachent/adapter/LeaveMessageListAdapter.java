@@ -22,15 +22,12 @@ import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 public class LeaveMessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private Context context;
-    private String[] leaveMessageNameList;
-    private String[] leaveMessageSimpleTextList;
+
     private LayoutInflater layoutInflater;
     private LeaveMessageFragment fragment;
 
-    public LeaveMessageListAdapter(Context context, String[] leaveMessageNameList, String[] leaveMessageSimpleTextList, LeaveMessageFragment fragment) {
+    public LeaveMessageListAdapter(Context context, LeaveMessageFragment fragment) {
         this.context = context;
-        this.leaveMessageNameList = leaveMessageNameList;
-        this.leaveMessageSimpleTextList = leaveMessageSimpleTextList;
         this.fragment = fragment;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -53,15 +50,15 @@ public class LeaveMessageListAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param iv
      */
     private void bindItem(TextView tv_name,TextView tv_simple_text, ImageView iv, int position) {
-        tv_name.setText(leaveMessageNameList[position]);
-        tv_simple_text.setText(leaveMessageSimpleTextList[position]);
+        tv_name.setText(CommonData.leaveMessageNameList.get(position));
+        tv_simple_text.setText(CommonData.leaveMessageContent.get(position));
         iv.setImageResource(R.mipmap.avatar_student_male);
     }
 
 
     @Override
     public int getItemCount() {
-        return leaveMessageNameList.length;
+        return CommonData.leaveMessageNameList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -87,7 +84,7 @@ public class LeaveMessageListAdapter extends RecyclerView.Adapter<RecyclerView.V
          * @param position
          */
         private void showLeaveMessageDetails(int position) {
-            Toast.makeText(context,"显示留言板详情"+leaveMessageSimpleTextList[position],Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context,"显示留言板详情"+leaveMessageSimpleTextList[position],Toast.LENGTH_SHORT).show();
             CommonData.leaveMessagePosition =position;
             fragment.getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new LeaveMessageDetailFragment()).commit();
         }

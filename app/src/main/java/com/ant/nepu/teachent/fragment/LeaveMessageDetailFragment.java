@@ -71,7 +71,7 @@ public class LeaveMessageDetailFragment extends Fragment {
      * 加载留言板详情
      */
     private void loadData() {
-        tv_text.setText(CommonData.leaveMessageDetailTextList[CommonData.leaveMessagePosition]);
+//        tv_text.setText(CommonData.leaveMessageDetailTextList[CommonData.leaveMessagePosition]);
     }
 
 }
