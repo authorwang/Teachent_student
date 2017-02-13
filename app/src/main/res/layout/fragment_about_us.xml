@@ -13,8 +13,8 @@
         <ImageView
             android:layout_width="96dp"
             android:layout_height="96dp"
-            app:srcCompat="@mipmap/app_icon"
-            android:layout_centerVertical="true"
+            app:srcCompat="@mipmap/logo_ant"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/imageView" />
 
