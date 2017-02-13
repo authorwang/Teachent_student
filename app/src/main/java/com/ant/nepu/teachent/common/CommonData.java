@@ -27,6 +27,11 @@ public class CommonData {
     public static String initialSelectedName = "";
     public static String initialSelectedSchoolId = "";
     public static String initialSelectedClassId = "";
+    public static String[] qrCodeResult = {
+            "teachent",
+            "student",
+            "classid"
+    };
 
 
     //是否初始化标记

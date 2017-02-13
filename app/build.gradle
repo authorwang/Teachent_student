@@ -50,6 +50,7 @@ dependencies {
     //MPAndroidChart
 
     //RecyclerView and CardView
+    compile project(path: ':libzxing')
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
     compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
     compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'

@@ -39,6 +39,8 @@ import com.avos.avoscloud.SaveCallback;
 
 import java.io.File;
 
+import static android.app.Activity.RESULT_CANCELED;
+
 /**
  * 作业-作业详情Fragment
  */
@@ -163,13 +165,12 @@ public class HomeworkDetailFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != Constants.RESULT_CANCELED) {
+        if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
-                case Constants.IMAGE_REQUEST_CODE:
-                    startPhotoZoom(data.getData());
-                    break;
+
                 case Constants.CAMERA_REQUEST_CODE:
                     startPhotoZoom(Uri.fromFile(new File(Environment
                             .getExternalStorageDirectory(), "hw_myanswer_" + CommonData.homeworkNo + ".png")));

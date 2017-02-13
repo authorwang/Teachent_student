@@ -57,6 +57,7 @@ public class HomeFragment extends Fragment {
     private TextView tv_greeting;
     private String greeting_Text;
     private LoadingDialog loadingDialog;
+    private static Handler handler;
 
     /**
      * PieChart数据
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment {
         loadingDialog.show();
 
         // Inflate the layout for this fragment
-        final Handler handler = new Handler(){
+        handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);

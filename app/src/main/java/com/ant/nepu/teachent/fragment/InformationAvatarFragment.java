@@ -31,6 +31,8 @@ import com.avos.avoscloud.SaveCallback;
 
 import java.io.File;
 
+import static android.app.Activity.RESULT_CANCELED;
+
 /**
  * 我的信息
  * 头像信息Fragment
@@ -109,9 +111,8 @@ public class InformationAvatarFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode != Constants.RESULT_CANCELED) {
+        if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case Constants.IMAGE_REQUEST_CODE:
                     startPhotoZoom(data.getData());

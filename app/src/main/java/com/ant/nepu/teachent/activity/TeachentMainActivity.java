@@ -30,8 +30,17 @@ import com.ant.nepu.teachent.fragment.HomeworkFragment;
 import com.ant.nepu.teachent.fragment.InformationFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 import com.ant.nepu.teachent.fragment.PPTBaseFragment;
+import com.ant.nepu.teachent.fragment.QRCodeFragment;
 import com.ant.nepu.teachent.util.UserInfoUtils;
+import com.avos.avoscloud.AVCloudQueryResult;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CloudQueryCallback;
+import com.avos.avoscloud.SaveCallback;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -220,7 +229,8 @@ public class TeachentMainActivity extends AppCompatActivity
      * 二维码扫描
      */
     private void goQRCode() {
-        Toast.makeText(TeachentMainActivity.this, getString(R.string.action_qrcode), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(TeachentMainActivity.this, getString(R.string.action_qrcode), Toast.LENGTH_SHORT).show();
+       getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new QRCodeFragment()).commit();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -401,4 +411,13 @@ public class TeachentMainActivity extends AppCompatActivity
         HomeFragment fragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main, fragment).commit();
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        //Log.i("TAG","resultCode: "+resultCode+" result_ok: "+RESULT_OK);
+
+//    }
+
+
 }

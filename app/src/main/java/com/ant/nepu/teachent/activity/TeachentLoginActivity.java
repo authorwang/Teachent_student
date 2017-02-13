@@ -183,12 +183,13 @@ public class TeachentLoginActivity extends AppCompatActivity {
                     CommonData.hasRegistered = true;
                     if (loadingDialog.isShowing()) {
                         loadingDialog.dismiss();
-                        if(e.getMessage().contains("203")){
-                            Toast.makeText(TeachentLoginActivity.this,"登录或失败，请检查Email和密码是否正确填写！",Toast.LENGTH_LONG).show();
-                        }
+
                         if (e == null) {
                             startActivity(new Intent(TeachentLoginActivity.this, TeachentMainActivity.class));
                             TeachentLoginActivity.this.finish();
+                        }else if (e.getMessage().contains("203")){
+                            Toast.makeText(TeachentLoginActivity.this,"登录或失败，请检查Email和密码是否正确填写！",Toast.LENGTH_LONG).show();
+
                         }
                     }
                 }

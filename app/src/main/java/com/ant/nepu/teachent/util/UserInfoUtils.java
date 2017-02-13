@@ -79,21 +79,24 @@ public class UserInfoUtils {
         AVQuery.doCloudQueryInBackground(userCql, new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                if(avCloudQueryResult.getResults().isEmpty()){
-                    CommonData.userAvatar = BitmapFactory.decodeResource(context.getResources(), R.mipmap.avatar_student_male);
-                    handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
-                }else{
+
                     AVFile file = avCloudQueryResult.getResults().get(0).getAVFile("useravatar");
-                    file.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] bytes, AVException e) {
-                            if(e==null){
-                                CommonData.userAvatar = ImageUtils.getPicFromBytes(bytes, null);
-                                handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+                    if(file==null){
+                        CommonData.userAvatar = BitmapFactory.decodeResource(context.getResources(), R.mipmap.avatar_student_male);
+                        handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+                    }else{
+                        file.getDataInBackground(new GetDataCallback() {
+                            @Override
+                            public void done(byte[] bytes, AVException e) {
+                                if(e==null){
+                                    CommonData.userAvatar = ImageUtils.getPicFromBytes(bytes, null);
+                                    handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+                                }
                             }
-                        }
-                    });
-                }
+                        });
+
+                    }
+
             }
         });
         return true;
