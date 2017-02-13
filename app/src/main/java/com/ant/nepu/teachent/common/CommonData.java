@@ -94,7 +94,7 @@ public class CommonData {
     //留言板姓名列表
     public static ArrayList<String> leaveMessageNameList = new ArrayList<>();
     //留言板留言信息列表
-    public static ArrayList<String> leaveMessageContent = new ArrayList<>();
+    public static ArrayList<String> leaveMessageContentList = new ArrayList<>();
     //留言板项目对应位置
     public static int leaveMessagePosition;
 

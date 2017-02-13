@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,6 +17,19 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/rl_frag_leave_message_title"/>
 
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_dialog_email"
+            android:foregroundGravity="bottom"
+            android:layout_centerVertical="true"
+            android:layout_alignBottom="@id/rv_fragment_leave_message"
+            android:layout_alignEnd="@id/rv_fragment_leave_message"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/fab_frag_leave_message_new"
+            />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +45,9 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 style="@style/fragment_ppt_title"/>
+
+
+
         </RelativeLayout>
 
 

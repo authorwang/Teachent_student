@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.ant.nepu.teachent.fragment.InformationTextFragment">
+    tools:context="com.ant.nepu.teachent.fragment.LeaveMessageNewFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,16 +19,16 @@
             android:padding="@dimen/fab_margin">
 
             <TextView
-                android:id="@+id/tv_frag_information_text_title"
+                android:id="@+id/tv_frag_leave_message_new_text_title"
                 style="@style/fragment_ppt_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/btn_frag_information_text_save"
-                android:layout_alignBottom="@+id/btn_frag_information_text_save"
+                android:layout_alignBaseline="@+id/btn_frag_leave_message_new_text_save"
+                android:layout_alignBottom="@+id/btn_frag_leave_message_new_text_save"
                 android:layout_centerHorizontal="true" />
 
             <Button
-                android:id="@+id/btn_frag_information_text_save"
+                android:id="@+id/btn_frag_leave_message_new_text_save"
                 style="@style/fragment_ppt_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                 android:text="@string/fragment_information_text_button_save" />
 
             <Button
-                android:id="@+id/btn_frag_information_text_cancel"
+                android:id="@+id/btn_frag_leave_message_new_text_cancel"
                 style="@style/fragment_ppt_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             android:layout_below="@+id/rl_frag_homework_title">
 
             <EditText
-                android:id="@+id/et_frag_information_text_content"
+                android:id="@+id/et_frag_leave_message_new_text_content"
                 android:layout_width="360dp"
                 android:layout_height="430dp"
                 android:layout_alignParentStart="true"

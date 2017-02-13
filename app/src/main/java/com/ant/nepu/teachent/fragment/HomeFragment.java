@@ -84,6 +84,9 @@ public class HomeFragment extends Fragment {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 switch (msg.what){
+                    case Constants.UPDATE_USER_INFO:
+                        updateUserInfo(this);
+                        break;
                     case Constants.PRE_DATA_PREPARED:
                         loadPreCheckInData(this);
                         break;
@@ -106,6 +109,20 @@ public class HomeFragment extends Fragment {
         tv_username  = (TextView) mView.findViewById(R.id.tv_frag_home_nickname);
 
         return mView;
+    }
+
+
+    private void updateUserInfo(final Handler handler) {
+        String _userCql = "select userrealname from _User where objectId='"+AVUser.getCurrentUser().getObjectId()+"'";
+        AVQuery.doCloudQueryInBackground(_userCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                if(e==null){
+                    CommonData.userName = avCloudQueryResult.getResults().get(0).getString("userrealname");
+                    handler.sendEmptyMessage(Constants.PRE_DATA_PREPARED);
+                }
+            }
+        });
     }
 
     private void loadClassData(final Handler handler) {
@@ -137,7 +154,7 @@ public class HomeFragment extends Fragment {
                                         CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
 //                                        Toast.makeText(context,avCloudQueryResult.getResults().get(i).getString("classid"),Toast.LENGTH_SHORT).show();
                                     }
-                                    handler.sendEmptyMessage(Constants.PRE_DATA_PREPARED);
+                                    handler.sendEmptyMessage(Constants.UPDATE_USER_INFO);
                                 }else{
                                     Log.e("error:studentclass",e.getMessage());
                                     Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();

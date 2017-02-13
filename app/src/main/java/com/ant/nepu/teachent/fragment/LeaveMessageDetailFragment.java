@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
+import com.ant.nepu.teachent.common.Constants;
 
 import org.w3c.dom.Text;
 
@@ -43,9 +44,9 @@ public class LeaveMessageDetailFragment extends Fragment {
 
         //findViews
         btn_back = (Button) mView.findViewById(R.id.btn_frag_leave_message_detail_close);
-        btn_comment = (Button) mView.findViewById(R.id.btn_frag_leave_message_detail_comment);
+//        btn_comment = (Button) mView.findViewById(R.id.btn_frag_leave_message_detail_comment);
         tv_text = (TextView) mView.findViewById(R.id.tv_frag_leave_message_detail_text);
-        tv_comment = (TextView) mView.findViewById(R.id.tv_frag_leave_message_detail_comment);
+//        tv_comment = (TextView) mView.findViewById(R.id.tv_frag_leave_message_detail_comment);
 
         //加载数据
         loadData();
@@ -58,12 +59,6 @@ public class LeaveMessageDetailFragment extends Fragment {
             }
         });
 
-        btn_comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"评论提交",Toast.LENGTH_SHORT).show();
-            }
-        });
         return mView;
     }
 
@@ -71,6 +66,7 @@ public class LeaveMessageDetailFragment extends Fragment {
      * 加载留言板详情
      */
     private void loadData() {
+        tv_text.setText(CommonData.leaveMessageNameList.get(CommonData.homeworkPosition)+ Constants.frag_leave_message_cv_text_mid_word+CommonData.leaveMessageContentList.get(CommonData.leaveMessagePosition));
 //        tv_text.setText(CommonData.leaveMessageDetailTextList[CommonData.leaveMessagePosition]);
     }
 

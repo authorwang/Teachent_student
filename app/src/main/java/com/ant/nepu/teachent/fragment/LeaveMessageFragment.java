@@ -4,12 +4,14 @@ package com.ant.nepu.teachent.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.adapter.LeaveMessageListAdapter;
@@ -35,6 +37,7 @@ public class LeaveMessageFragment extends Fragment {
     private RecyclerView recyclerView;
     private LeaveMessageListAdapter leaveMessageListAdapter;
     private LoadingDialog loadingDialog;
+    private FloatingActionButton fab_New;
 
     public LeaveMessageFragment() {
         // Required empty public constructor
@@ -57,6 +60,13 @@ public class LeaveMessageFragment extends Fragment {
                         leaveMessageListAdapter = new LeaveMessageListAdapter(mView.getContext(), LeaveMessageFragment.this);
                         recyclerView.setLayoutManager(new LinearLayoutManager(mView.getContext()));
                         recyclerView.setAdapter(leaveMessageListAdapter);
+                        fab_New.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+//                                Toast.makeText(mView.getContext(),"新留言",Toast.LENGTH_SHORT).show();
+                                    newLeaveMessage();
+                            }
+                        });
                         loadingDialog.dismiss();
                         break;
                 }
@@ -64,6 +74,7 @@ public class LeaveMessageFragment extends Fragment {
         };
         //findViews
         recyclerView = (RecyclerView) mView.findViewById(R.id.rv_fragment_leave_message);
+        fab_New = (FloatingActionButton) mView.findViewById(R.id.fab_frag_leave_message_new);
 
         /**
          * recyclerView加载数据
@@ -73,39 +84,37 @@ public class LeaveMessageFragment extends Fragment {
     }
 
     /**
+     * 新留言
+     */
+    private void newLeaveMessage() {
+getFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new LeaveMessageNewFragment()).commit();
+    }
+
+    /**
      * recyclerView加载数据
      */
     private void loadPreData(final Handler handler) {
         CommonData.leaveMessageNameList = new ArrayList<>();
-        CommonData.leaveMessageContent = new ArrayList<>();
-        String leaveMessageNameCountCql = "select count(*) from _User where objectId in " +
-                "(select userid from leavemessage)";
-        AVQuery.doCloudQueryInBackground(leaveMessageNameCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
+        CommonData.leaveMessageContentList = new ArrayList<>();
+       String leaveMessageCountCql = "select count(*) from leavemessage";
+        AVQuery.doCloudQueryInBackground(leaveMessageCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
                 if(e==null){
                     final int leaveMessageCount = avCloudQueryResult.getCount();
-                    String leaveMessageNameCql = "select userrealname from _User where objectId in" +
-                            "(select userid from leavemessage)";
-                    AVQuery.doCloudQueryInBackground(leaveMessageNameCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                    String leaveMessageCql = "select username,messagecontent from leavemessage";
+                    AVQuery.doCloudQueryInBackground(leaveMessageCql, new CloudQueryCallback<AVCloudQueryResult>() {
                         @Override
                         public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                            for(int i=0;i<leaveMessageCount;i++){
-                                CommonData.leaveMessageNameList.add(avCloudQueryResult.getResults().get(i).getString("userrealname"));
-                            }
-                            String leaveMessageContentCql = "select messagecontent from leavemessage";
-                            AVQuery.doCloudQueryInBackground(leaveMessageContentCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                                @Override
-                                public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                                    for(int i=0;i<leaveMessageCount;i++){
-                                        CommonData.leaveMessageContent.add(avCloudQueryResult.getResults().get(i).getString("messagecontent"));
-                                    }
-                                    handler.sendEmptyMessage(Constants.DATA_PREPARED);
+                            if(e==null){
+                                for(int i=0;i<leaveMessageCount;i++){
+                                    CommonData.leaveMessageNameList.add(avCloudQueryResult.getResults().get(i).getString("username"));
+                                    CommonData.leaveMessageContentList.add(avCloudQueryResult.getResults().get(i).getString("messagecontent"));
                                 }
-                            });
+                                handler.sendEmptyMessage(Constants.DATA_PREPARED);
+                            }
                         }
                     });
-
                 }
 
             }

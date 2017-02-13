@@ -17,6 +17,7 @@ public class  Constants {
      */
     public static final int DATA_PREPARED = 0x1;
     public static final int PRE_DATA_PREPARED = 0x2;
+    public static final int UPDATE_USER_INFO = 0x3;
 
     /**
      * TeachentLoginActivity 同步登录过程
@@ -71,4 +72,9 @@ public class  Constants {
     public static final int CAMERA_REQUEST_CODE = 0x3;
     public static final int RESULT_REQUEST_CODE = 0x4;
     public static final int ANSWER_SUBMITTED = 0x5;
+
+    /**
+     * LeaveMessageNewFragment 参数
+     */
+    public static final int SAVE_READY = 0x1;
 }

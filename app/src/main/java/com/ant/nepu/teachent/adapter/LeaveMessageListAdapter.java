@@ -51,7 +51,7 @@ public class LeaveMessageListAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     private void bindItem(TextView tv_name,TextView tv_simple_text, ImageView iv, int position) {
         tv_name.setText(CommonData.leaveMessageNameList.get(position));
-        tv_simple_text.setText(CommonData.leaveMessageContent.get(position));
+        tv_simple_text.setText(CommonData.leaveMessageContentList.get(position));
         iv.setImageResource(R.mipmap.avatar_student_male);
     }
 
