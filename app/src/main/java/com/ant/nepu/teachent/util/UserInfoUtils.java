@@ -73,25 +73,29 @@ public class UserInfoUtils {
     }
 
     //刷新头像
-    public static boolean refreshAvatar(final Context context){
-        CommonData.userRawAvatar = AVUser.getCurrentUser().getAVFile("useravatar");
-        //将AVFile转换为Bitmap
-        if (CommonData.userRawAvatar != null) {
-            //下载AVFile
-            CommonData.userRawAvatar.getDataInBackground(new GetDataCallback() {
-                @Override
-                public void done(byte[] bytes, AVException e) {
-                    if (e == null) {//转换为bitmap
-                        CommonData.userAvatar = ImageUtils.getPicFromBytes(bytes, null);
-                    } else {
-                        Log.e("download avfile error:", e.getMessage());
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
+    public static boolean refreshAvatar(final Context context, final Handler handler){
+        //CommonData.userRawAvatar = AVUser.getCurrentUser().getAVFile("useravatar");
+        String userCql = "select include useravatar from _User where objectId='"+AVUser.getCurrentUser().getObjectId()+"'";
+        AVQuery.doCloudQueryInBackground(userCql, new CloudQueryCallback<AVCloudQueryResult>() {
+            @Override
+            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                if(avCloudQueryResult.getResults().isEmpty()){
+                    CommonData.userAvatar = BitmapFactory.decodeResource(context.getResources(), R.mipmap.avatar_student_male);
+                    handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+                }else{
+                    AVFile file = avCloudQueryResult.getResults().get(0).getAVFile("useravatar");
+                    file.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] bytes, AVException e) {
+                            if(e==null){
+                                CommonData.userAvatar = ImageUtils.getPicFromBytes(bytes, null);
+                                handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
+                            }
+                        }
+                    });
                 }
-            });
-        } else {//使用默认头像
-            CommonData.userAvatar = BitmapFactory.decodeResource(context.getResources(), R.mipmap.avatar_student_male);
-        }
+            }
+        });
         return true;
     }
 
@@ -133,10 +137,6 @@ public class UserInfoUtils {
                 });
             }
         });
-        return true;
-    }
-    public static boolean refreshClass(final Context context, final Handler handler){
-
         return true;
     }
 

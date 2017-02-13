@@ -98,4 +98,8 @@ public class CommonData {
     //留言板项目对应位置
     public static int leaveMessagePosition;
 
+    //我的信息主菜单内容列表
+    public static  ArrayList<String> informationMainMenuList = new ArrayList<>();
+    public static ArrayList<String> informationSelectedClassIdList = new ArrayList<>();
+
 }

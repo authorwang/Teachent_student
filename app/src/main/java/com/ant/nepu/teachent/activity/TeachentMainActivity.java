@@ -44,9 +44,10 @@ public class TeachentMainActivity extends AppCompatActivity
      *
      * @param savedInstanceState
      */
-    public  static TextView tv_nav_username;
-    public  static TextView tv_nav_email;
-    public  static ImageView iv_nav_avatar;
+    private    TextView tv_nav_username;
+    private   TextView tv_nav_email;
+    private   ImageView iv_nav_avatar;
+    public  static Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class TeachentMainActivity extends AppCompatActivity
         tv_nav_email = (TextView) nav_header_view.findViewById(R.id.tv_nav_username);
         iv_nav_avatar = (ImageView) nav_header_view.findViewById(R.id.iv_nav_avatar);
 
-        final Handler handler = new Handler(){
+        handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -137,7 +138,7 @@ public class TeachentMainActivity extends AppCompatActivity
         }
 
         //写入头像CommonData
-        UserInfoUtils.refreshAvatar(this);
+        UserInfoUtils.refreshAvatar(this,handler);
         handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
 
 

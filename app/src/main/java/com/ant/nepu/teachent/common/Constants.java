@@ -22,41 +22,41 @@ public class  Constants {
     /**
      * TeachentLoginActivity 同步登录过程
      */
-    public static final int LOGIN_PROCESS = 0x1;
-    public static final int REGISITER_PROCESS = 0x2;
+    public static final int LOGIN_PROCESS = 0x4;
+    public static final int REGISITER_PROCESS = 0x5;
 
     /**
      * TeachentMainActivity更新UI
      */
-    public static final int UPDATE_USERNAME = 0x1;
-    public static final int UPDATE_USEREMAIL = 0x2;
-    public static final int UPDATE_USERAVATAR = 0x3;
-    public static final int FRAGMENT_HOME = 0x4;
+    public static final int UPDATE_USERNAME = 0x6;
+    public static final int UPDATE_USEREMAIL = 0x7;
+    public static final int UPDATE_USERAVATAR = 0x8;
+    public static final int FRAGMENT_HOME = 0x9;
 
     /**
      * TeachentMainActivity 导航Fragment
      */
-    public static final int FRAGMENT_CHECK_IN = 0x1;
-    public static final int FRAGMENT_PPT = 0x2;
-    public static final int FRAGMENT_HOMEWORK = 0x3;
-    public static final int FRAGMENT_CONTACT = 0x4;
-    public static final int FRAGMENT_LEAVE_MESSAGE = 0x5;
-    public static final int FRAGMENT_INFORMATION = 0x7;
-    public static final int FRAGMENT_ABOUT= 0x8;
-    public static final int FRAGMENT_LOG_OUT= 0x9;
+    public static final int FRAGMENT_CHECK_IN = 0xA;
+    public static final int FRAGMENT_PPT = 0xB;
+    public static final int FRAGMENT_HOMEWORK = 0xC;
+    public static final int FRAGMENT_CONTACT = 0xD;
+    public static final int FRAGMENT_LEAVE_MESSAGE = 0xE;
+    public static final int FRAGMENT_INFORMATION = 0xF;
+    public static final int FRAGMENT_ABOUT= 0xF1;
+    public static final int FRAGMENT_LOG_OUT= 0xF2;
 
     /**
      * TeachentInitialActivity传递参数
      */
-    public static final int REQUEST_TEXT_NO = 0x1;
-    public static final int REQUEST_TEXT_NAME = 0x2;
-    public static final int REQUEST_LIST_SCHOOL = 0x3;
-    public static final int REQUEST_LIST_CLASS = 0x4;
+    public static final int REQUEST_TEXT_NO = 0xF3;
+    public static final int REQUEST_TEXT_NAME = 0xF4;
+    public static final int REQUEST_LIST_SCHOOL = 0xF5;
+    public static final int REQUEST_LIST_CLASS = 0xF6;
 
-    public static final int RESULT_NO = 0x1;
-    public static final int RESULT_NAME = 0x2;
-    public static final int RESULT_SCHOOL = 0x3;
-    public static final int RESULT_CLASS = 0x4;
+    public static final int RESULT_NO = 0xF7;
+    public static final int RESULT_NAME = 0xF8;
+    public static final int RESULT_SCHOOL = 0xF9;
+    public static final int RESULT_CLASS = 0xFA;
 
     public static String frag_contact_cv_name_title = "老师姓名：";
     public static String frag_contact_cv_tel_title = "联系电话：";
@@ -67,14 +67,25 @@ public class  Constants {
     /**
      * HomeworkDetailFragment 参数
      */
-    public static final int RESULT_CANCELED = 0x1;
-    public static final int IMAGE_REQUEST_CODE = 0x2;
-    public static final int CAMERA_REQUEST_CODE = 0x3;
-    public static final int RESULT_REQUEST_CODE = 0x4;
-    public static final int ANSWER_SUBMITTED = 0x5;
+    public static final int RESULT_CANCELED = 0xFB;
+    public static final int IMAGE_REQUEST_CODE = 0xFC;
+    public static final int CAMERA_REQUEST_CODE = 0xFD;
+    public static final int RESULT_REQUEST_CODE = 0xFE;
+    public static final int ANSWER_SUBMITTED = 0xFF;
 
     /**
      * LeaveMessageNewFragment 参数
      */
-    public static final int SAVE_READY = 0x1;
+    public static final int SAVE_READY = 0xFF1;
+
+    /**
+     * InformationFragment参数
+     */
+    public static final String[] mainMenuTitles = {
+            "头像",
+            "学号",
+            "姓名",
+            "学校",
+            "班级"
+    };
 }

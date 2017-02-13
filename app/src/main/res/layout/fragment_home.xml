@@ -19,7 +19,7 @@
                 android:id="@+id/iv_frag_home_avatar"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@mipmap/avatar_student_male" />
+                />
 
             <TextView
                 android:id="@+id/tv_frag_home_greeting"
