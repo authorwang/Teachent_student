@@ -81,53 +81,35 @@ public class PPTBaseFragment extends Fragment {
     private void loadPreData(final Handler handler) {
         CommonData.classIdList = new ArrayList<>();
         CommonData.classNameList = new ArrayList<>();
-        String userid = AVUser.getCurrentUser().getObjectId();
-        String userroleCql = "select relatedid from userrole where userid='" + userid + "'";
-        AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
+        String studentclassCountCql = "select count(*) from studentclass where studentid=" +
+                "(select relatedid from userrole where userid='" + AVUser.getCurrentUser().getObjectId() + "')";
+        AVQuery.doCloudQueryInBackground(studentclassCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
             @Override
             public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                final String studentId = avCloudQueryResult.getResults().get(0).getString("relatedid");
-                CommonData.studentId = studentId;
-                final String studentClassCountCql = "select count(*) from studentclass where studentid='" + studentId + "'";
-                AVQuery.doCloudQueryInBackground(studentClassCountCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                    @Override
-                    public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                        final int studentClassCount = avCloudQueryResult.getCount();
-//                        String s = Integer.toString(studentClassCount);
-//                        Toast.makeText(TeachentMainActivity.this,s,Toast.LENGTH_SHORT).show();
-                        String studentClassCql = "select classid from studentclass where studentid='" + studentId + "'";
-                        AVQuery.doCloudQueryInBackground(studentClassCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                            @Override
-                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                                if (e == null) {
-//                                    String s = Integer.toString(studentClassCount);
-//                                    Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
-                                    for (int i = 0; i < studentClassCount; i++) {
-                                        CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
-//                                        Toast.makeText(context,avCloudQueryResult.getResults().get(i).getString("classid"),Toast.LENGTH_SHORT).show();
-                                    }
-//                                    handler.sendEmptyMessage(Constants.DATA_PREPARED);
-                                    String classCql = "select classname from class where classid in (select classid from studentclass where studentid='" + studentId + "')";
-                                    AVQuery.doCloudQueryInBackground(classCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                                        @Override
-                                        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-                                            for (int i = 0; i < studentClassCount; i++) {
-                                                CommonData.classNameList.add(avCloudQueryResult.getResults().get(i).getString("classname"));
-                                            }
-                                            handler.sendEmptyMessage(Constants.DATA_PREPARED);
-                                        }
-                                    });
-                                } else {
-                                    Log.e("error:studentclass", e.getMessage());
-                                    Toast.makeText(mView.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                if (e == null) {
+                    final int studentClassCount = avCloudQueryResult.getCount();
+                    String classCql = "select classid,classname from class where classid in " +
+                            "(select classid from studentclass where studentid=" +
+                            "(select relatedid from userrole where userid='" + AVUser.getCurrentUser().getObjectId() + "')) ";
+                    AVQuery.doCloudQueryInBackground(classCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                        @Override
+                        public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                            if (e == null) {
+                                for(int i=0;i<studentClassCount;i++){
+                                    CommonData.classIdList.add(avCloudQueryResult.getResults().get(i).getString("classid"));
                                 }
-
+                                for(int i=0;i<studentClassCount;i++){
+                                    CommonData.classNameList.add(avCloudQueryResult.getResults().get(i).getString("classname"));
+                                }
+                                handler.sendEmptyMessage(Constants.DATA_PREPARED);
                             }
-                        });
-                    }
-                });
+                        }
+                    });
+                }
+
             }
         });
+
     }
 
 

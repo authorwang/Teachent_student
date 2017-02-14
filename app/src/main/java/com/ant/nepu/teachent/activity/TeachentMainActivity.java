@@ -31,6 +31,7 @@ import com.ant.nepu.teachent.fragment.InformationFragment;
 import com.ant.nepu.teachent.fragment.LeaveMessageFragment;
 import com.ant.nepu.teachent.fragment.PPTBaseFragment;
 import com.ant.nepu.teachent.fragment.QRCodeFragment;
+import com.ant.nepu.teachent.util.AVCloudUtils;
 import com.ant.nepu.teachent.util.UserInfoUtils;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
@@ -66,7 +67,7 @@ public class TeachentMainActivity extends AppCompatActivity
 
 
         setContentView(R.layout.activity_teachent_main);
-
+        AVCloudUtils.registerApp(this);
 //        final View navView = getLayoutInflater().inflate(R.layout.nav_header_teachent_main,null);
         //findViews
         NavigationView nav_view = (NavigationView) findViewById(R.id.nav_view);

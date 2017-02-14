@@ -16,6 +16,7 @@ import com.ant.nepu.teachent.adapter.InitialListListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
 import com.ant.nepu.teachent.dialog.LoadingDialog;
+import com.ant.nepu.teachent.util.AVCloudUtils;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -34,7 +35,7 @@ public class InitialListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_initial_list);
         loadingDialog = new LoadingDialog(this);
         loadingDialog.show();
-
+        AVCloudUtils.registerApp(this);
         listView = (ListView) findViewById(R.id.lv_activity_initial_items);
         btn_cancel = (Button) findViewById(R.id.btn_activity_initial_list_cancel);
         tv_title = (TextView) findViewById(R.id.tv_activity_initial_list_title);
@@ -84,7 +85,8 @@ public class InitialListActivity extends AppCompatActivity {
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    View itemView = listView.getChildAt(position);
+                                    Log.e("position",String.valueOf(position));
+                                    View itemView = listView.getChildAt(position-listView.getFirstVisiblePosition());
                                     TextView tv_id = (TextView) itemView.findViewById(R.id.tv_activity_initial_list_id);
                                     TextView tv_name = (TextView) itemView.findViewById(R.id.tv_activity_initial_list_name);
                                     if(tv_title.getText().toString().equals("学校")){
@@ -140,7 +142,7 @@ public class InitialListActivity extends AppCompatActivity {
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    View itemView = listView.getChildAt(position);
+                                    View itemView = listView.getChildAt(position-listView.getFirstVisiblePosition());
                                     TextView tv_id = (TextView) itemView.findViewById(R.id.tv_activity_initial_list_id);
                                     TextView tv_name = (TextView) itemView.findViewById(R.id.tv_activity_initial_list_name);
                                     if(tv_title.getText().toString().equals("学校")){

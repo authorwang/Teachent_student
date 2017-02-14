@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
+import com.ant.nepu.teachent.util.AVCloudUtils;
 
 public class InitialTextActivity extends AppCompatActivity {
     private Button btn_cancel;
@@ -21,7 +22,7 @@ public class InitialTextActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_text);
-
+        AVCloudUtils.registerApp(this);
         //findViews
         btn_cancel = (Button) findViewById(R.id.btn_activity_initial_text_cancel);
         btn_save = (Button) findViewById(R.id.btn_activity_initial_text_save);

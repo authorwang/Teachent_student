@@ -14,6 +14,7 @@ import com.ant.nepu.teachent.adapter.InitialListAdapter;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
 import com.ant.nepu.teachent.dialog.LoadingDialog;
+import com.ant.nepu.teachent.util.AVCloudUtils;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 
@@ -28,7 +29,7 @@ public class TeachentInitialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teachent_initial);
-
+        AVCloudUtils.registerApp(this);
         listView = (ListView) findViewById(R.id.lv_activity_settings);
         loadingDialog = new LoadingDialog(this);
         loadData();

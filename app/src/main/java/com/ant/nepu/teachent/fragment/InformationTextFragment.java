@@ -139,16 +139,14 @@ public class InformationTextFragment extends Fragment{
     }
 
     private void saveClassInBackground() {
-        SparseBooleanArray checkedItemPositonList = listView.getCheckedItemPositions();
+        SparseBooleanArray checkedItemPositionList = listView.getCheckedItemPositions();
         for(int i=0;i<listView.getAdapter().getCount();i++){
-            if(checkedItemPositonList.get(i)){
+            if(checkedItemPositionList.get(i)){
                 Log.e("position",String.valueOf(i));
-                View selectedView = listView.getChildAt(i);
-                if(selectedView!=null){
+                View selectedView = listView.getChildAt(i-listView.getFirstVisiblePosition());
                     TextView tv = (TextView) selectedView.findViewById(R.id.tv_frag_information_class_class_id);
                     String selectedClassId = tv.getText().toString();
                     CommonData.informationSelectedClassIdList.add(selectedClassId);
-                }
             }
         }
         saveHandler.sendEmptyMessage(Constants.DATA_PREPARED);

@@ -138,12 +138,12 @@ public class TeachentLoginActivity extends AppCompatActivity {
             AVQuery.doCloudQueryInBackground(_userCql, new CloudQueryCallback<AVCloudQueryResult>() {
                 @Override
                 public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-
-                        String userid = avCloudQueryResult.getResults().get(0).getObjectId();
-                        String userroleCql = "select rolename from userrole where userid='"+userid+"'";
-                        AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
-                            @Override
-                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+                        if (!avCloudQueryResult.getResults().isEmpty()){
+                            String userid = avCloudQueryResult.getResults().get(0).getObjectId();
+                            String userroleCql = "select rolename from userrole where userid='"+userid+"'";
+                            AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                                @Override
+                                public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
 
                                     if(avCloudQueryResult.getResults().get(0).get("rolename")==null){
                                         handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
@@ -155,7 +155,11 @@ public class TeachentLoginActivity extends AppCompatActivity {
                                     }
                                 }
 
-                        });
+                            });
+                        }else{
+                            handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                        }
+
                     }
 
             });
