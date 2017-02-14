@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -64,10 +65,13 @@ public class InformationClassListAdapter extends BaseAdapter {
     }
 
     private void updateBackground(int position, View convertView) {
+        ImageView iv_check = (ImageView) convertView.findViewById(R.id.iv_frag_information_class_item_if_check);
         if(listView.isItemChecked(position)){
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.avoscloud_timestamp_gray));
+            iv_check.setVisibility(View.VISIBLE);
+//            convertView.setBackgroundColor(context.getResources().getColor(R.color.avoscloud_timestamp_gray));
         }else{
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.avoscloud_feedback_white));
+            iv_check.setVisibility(View.INVISIBLE);
+//            convertView.setBackgroundColor(context.getResources().getColor(R.color.avoscloud_feedback_white));
         }
     }
 

@@ -15,13 +15,13 @@
         android:layout_alignParentTop="true">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_frag_information_class_item_if_check"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:visibility="gone"
-            app:srcCompat="@mipmap/listview_arrow_small" />
+            android:visibility="visible"
+            app:srcCompat="@mipmap/icon_check" />
 
     </RelativeLayout>
 
