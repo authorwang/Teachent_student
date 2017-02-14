@@ -18,6 +18,8 @@ import com.ant.nepu.teachent.util.AVCloudUtils;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 
+import java.util.Timer;
+
 public class TeachentInitialActivity extends AppCompatActivity {
 
 
@@ -25,6 +27,9 @@ public class TeachentInitialActivity extends AppCompatActivity {
     private ListView listView;
     private InitialListAdapter adapter;
     private LoadingDialog loadingDialog;
+    private long mExitTime = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,18 @@ public class TeachentInitialActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lv_activity_settings);
         loadingDialog = new LoadingDialog(this);
         loadData();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if ((System.currentTimeMillis() - mExitTime) > 2000) {//
+            // 如果两次按键时间间隔大于2000毫秒，则不退出
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();// 更新mExitTime
+        } else {
+            System.exit(0);// 否则退出程序
+        }
     }
 
     /**

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
@@ -56,10 +57,12 @@ public class TeachentMainActivity extends AppCompatActivity
      *
      * @param savedInstanceState
      */
-    private    TextView tv_nav_username;
-    private   TextView tv_nav_email;
-    private   ImageView iv_nav_avatar;
-    public  static Handler handler;
+    private TextView tv_nav_username;
+    private TextView tv_nav_email;
+    private ImageView iv_nav_avatar;
+    public static Handler handler;
+    private long mExitTime = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +79,11 @@ public class TeachentMainActivity extends AppCompatActivity
         tv_nav_email = (TextView) nav_header_view.findViewById(R.id.tv_nav_username);
         iv_nav_avatar = (ImageView) nav_header_view.findViewById(R.id.iv_nav_avatar);
 
-        handler = new Handler(){
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what){
+                switch (msg.what) {
                     case Constants.UPDATE_USERAVATAR:
                         iv_nav_avatar.setImageBitmap(CommonData.userAvatar);
                         break;
@@ -102,7 +105,7 @@ public class TeachentMainActivity extends AppCompatActivity
         //判断用户是否初始化
         CommonData.isInitial = AVUser.getCurrentUser().getBoolean("isInitial");
         if (!CommonData.isInitial) {
-            startActivity(new Intent(TeachentMainActivity.this,TeachentInitialActivity.class));
+            startActivity(new Intent(TeachentMainActivity.this, TeachentInitialActivity.class));
             TeachentMainActivity.this.finish();
             return;
         }
@@ -116,43 +119,40 @@ public class TeachentMainActivity extends AppCompatActivity
     }
 
 
-
-
-
     /**
      * 预加载用户数据
      * 更新到UI并写入commonData
      */
     private void loadUserData(final Handler handler) {
         //写入用户名 CommonData
-        if(!UserInfoUtils.refreshUserName()){
-            Log.e("error get cache","error get username from cache");
-        };
+        if (!UserInfoUtils.refreshUserName()) {
+            Log.e("error get cache", "error get username from cache");
+        }
+        ;
         handler.sendEmptyMessage(Constants.UPDATE_USERNAME);
 
         //写入email CommonData
-        if(!UserInfoUtils.refreshEmail()){
-            Log.e("error get cache","error get email from cache");
+        if (!UserInfoUtils.refreshEmail()) {
+            Log.e("error get cache", "error get email from cache");
         }
         handler.sendEmptyMessage(Constants.UPDATE_USEREMAIL);
 
         //写入学校id CommonData
-        if(!UserInfoUtils.refreshSchoolId()){
-            Log.e("error get cache","error get schoolid from cache");
+        if (!UserInfoUtils.refreshSchoolId()) {
+            Log.e("error get cache", "error get schoolid from cache");
         }
 
         //写入积分 CommonData
-        if(!UserInfoUtils.refreshCreditA()){
-            Log.e("error get cache","error get creditA from cache");
+        if (!UserInfoUtils.refreshCreditA()) {
+            Log.e("error get cache", "error get creditA from cache");
         }
-        if(!UserInfoUtils.refreshCreditB()){
-            Log.e("error get cache","error get creditB from cache");
+        if (!UserInfoUtils.refreshCreditB()) {
+            Log.e("error get cache", "error get creditB from cache");
         }
 
         //写入头像CommonData
-        UserInfoUtils.refreshAvatar(this,handler);
+        UserInfoUtils.refreshAvatar(this, handler);
         handler.sendEmptyMessage(Constants.UPDATE_USERAVATAR);
-
 
 
 //        goCheckIn();
@@ -169,7 +169,6 @@ public class TeachentMainActivity extends AppCompatActivity
 ////        TestLCFragment fragment = new TestLCFragment();
 ////        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,fragment).commit();
 //    }
-
     private void initNavigationView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -190,7 +189,13 @@ public class TeachentMainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {//
+                // 如果两次按键时间间隔大于2000毫秒，则不退出
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();// 更新mExitTime
+            } else {
+                System.exit(0);// 否则退出程序
+            }
         }
     }
 
@@ -231,18 +236,18 @@ public class TeachentMainActivity extends AppCompatActivity
      */
     private void goQRCode() {
 //        Toast.makeText(TeachentMainActivity.this, getString(R.string.action_qrcode), Toast.LENGTH_SHORT).show();
-       getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main,new QRCodeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_teachent_main, new QRCodeFragment()).commit();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        final Handler handler = new Handler(){
+        final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what){
+                switch (msg.what) {
                     case Constants.FRAGMENT_CHECK_IN:
                         goCheckIn();
                         break;
@@ -311,7 +316,6 @@ public class TeachentMainActivity extends AppCompatActivity
     }
 
 
-
     /**
      * 我的信息
      */
@@ -334,11 +338,11 @@ public class TeachentMainActivity extends AppCompatActivity
                         AVUser.logOut();
                         resetCommonData();
                         AVUser user = AVUser.getCurrentUser();
-                        startActivity(new Intent(TeachentMainActivity.this,TeachentLoginActivity.class));
+                        startActivity(new Intent(TeachentMainActivity.this, TeachentLoginActivity.class));
                         TeachentMainActivity.this.finish();
                     }
                 })
-                .setNegativeButton("取消",null).show();
+                .setNegativeButton("取消", null).show();
 
 
     }
@@ -347,7 +351,7 @@ public class TeachentMainActivity extends AppCompatActivity
      * 重置CommonData数据
      */
     private void resetCommonData() {
-        CommonData.userAvatar =null;
+        CommonData.userAvatar = null;
         CommonData.userName = null;
         CommonData.userEmail = null;
         CommonData.userCreditA = 0;
