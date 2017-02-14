@@ -44,8 +44,11 @@ import com.ant.nepu.teachent.R;
 import com.ant.nepu.teachent.common.CommonData;
 import com.ant.nepu.teachent.common.Constants;
 import com.ant.nepu.teachent.dialog.LoadingDialog;
+import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CloudQueryCallback;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 
@@ -82,6 +85,9 @@ public class TeachentLoginActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 switch (msg.what) {
+                    case Constants.CHECK_ROLE_PROCESS:
+                        doCheckRoleProcess(this);
+                        break;
                     case Constants.LOGIN_PROCESS:
                         doLoginProcess(this);
                         break;
@@ -103,7 +109,7 @@ public class TeachentLoginActivity extends AppCompatActivity {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
                     CommonData.hasLogin = false;
                     CommonData.hasRegistered = false;
-                    handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                    handler.sendEmptyMessage(Constants.CHECK_ROLE_PROCESS);
                     return true;
                 }
                 return false;
@@ -116,10 +122,44 @@ public class TeachentLoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonData.hasLogin = false;
                 CommonData.hasRegistered = false;
-                handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                handler.sendEmptyMessage(Constants.CHECK_ROLE_PROCESS);
             }
         });
 
+    }
+
+    /**
+     * 检查权限
+     */
+    private void doCheckRoleProcess(final Handler handler) {
+        clearErrors();
+        if(!cancel){
+            final String _userCql = "select objectId from _User where username='"+email+"'";
+            AVQuery.doCloudQueryInBackground(_userCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                @Override
+                public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+
+                        String userid = avCloudQueryResult.getResults().get(0).getObjectId();
+                        String userroleCql = "select rolename from userrole where userid='"+userid+"'";
+                        AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
+                            @Override
+                            public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
+
+                                    if(avCloudQueryResult.getResults().get(0).get("rolename")==null){
+                                        handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                                    }else if(!avCloudQueryResult.getResults().get(0).getString("rolename").equals("teacher")){
+                                        handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                                    }else{
+                                        Toast.makeText(TeachentLoginActivity.this,"登录失败，请验证Email身份。",Toast.LENGTH_SHORT).show();
+                                        loadingDialog.dismiss();
+                                    }
+                                }
+
+                        });
+                    }
+
+            });
+        }
     }
 
     /**
@@ -203,7 +243,6 @@ public class TeachentLoginActivity extends AppCompatActivity {
      * 登录流程
      */
     private void doLoginProcess(final Handler handler) {
-        clearErrors();
         if(!cancel){
             AVUser.logInInBackground(email, password, new LogInCallback<AVUser>() {
                 @Override

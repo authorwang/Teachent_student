@@ -24,6 +24,7 @@ public class  Constants {
      */
     public static final int LOGIN_PROCESS = 0x4;
     public static final int REGISITER_PROCESS = 0x5;
+    public static final int CHECK_ROLE_PROCESS = 0xFF;
 
     /**
      * TeachentMainActivity更新UI
@@ -67,24 +68,12 @@ public class  Constants {
     /**
      * 相机调用 参数
      */
-    public static final int RESULT_OK = 0xFB;
-    public static final int RESULT_CANCELED = 0xFB1;
+
     public static final int IMAGE_REQUEST_CODE = 0xFC;
     public static final int CAMERA_REQUEST_CODE = 0xFD;
     public static final int RESULT_REQUEST_CODE = 0xFE;
-    public static final int ANSWER_SUBMITTED = 0xFF;
 
 
-
-    public static final int RESULT_CANCELED_2 = 0xFF1;
-    public static final int IMAGE_REQUEST_CODE_2 = 0xFF2;
-    public static final int CAMERA_REQUEST_CODE_2 = 0xFF3;
-    public static final int RESULT_REQUEST_CODE_2 = 0xFF4;
-
-    public static final int RESULT_CANCELED_1 = 0xFF5;
-    public static final int IMAGE_REQUEST_CODE_1 = 0xFF6;
-    public static final int CAMERA_REQUEST_CODE_1 = 0xFF7;
-    public static final int RESULT_REQUEST_CODE_1 = 0xFF8;
 
     /**
      * LeaveMessageNewFragment 参数
