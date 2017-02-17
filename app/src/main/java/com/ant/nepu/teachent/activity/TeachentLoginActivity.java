@@ -144,15 +144,19 @@ public class TeachentLoginActivity extends AppCompatActivity {
                             AVQuery.doCloudQueryInBackground(userroleCql, new CloudQueryCallback<AVCloudQueryResult>() {
                                 @Override
                                 public void done(AVCloudQueryResult avCloudQueryResult, AVException e) {
-
-                                    if(avCloudQueryResult.getResults().get(0).get("rolename")==null){
-                                        handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
-                                    }else if(!avCloudQueryResult.getResults().get(0).getString("rolename").equals("teacher")){
-                                        handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                                    if(!avCloudQueryResult.getResults().isEmpty()){
+                                        if(avCloudQueryResult.getResults().get(0).get("rolename")==null){
+                                            handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                                        }else if(!avCloudQueryResult.getResults().get(0).getString("rolename").equals("teacher")){
+                                            handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
+                                        }else{
+                                            Toast.makeText(TeachentLoginActivity.this,"登录失败，请验证Email身份。",Toast.LENGTH_SHORT).show();
+                                            loadingDialog.dismiss();
+                                        }
                                     }else{
-                                        Toast.makeText(TeachentLoginActivity.this,"登录失败，请验证Email身份。",Toast.LENGTH_SHORT).show();
-                                        loadingDialog.dismiss();
+                                        handler.sendEmptyMessage(Constants.LOGIN_PROCESS);
                                     }
+
                                 }
 
                             });
@@ -216,7 +220,6 @@ public class TeachentLoginActivity extends AppCompatActivity {
      * 注册流程
      */
     private void doRegisterProcess() {
-
             AVUser user = new AVUser();
             user.setUsername(email);
             user.setPassword(password);
@@ -227,19 +230,15 @@ public class TeachentLoginActivity extends AppCompatActivity {
                     CommonData.hasRegistered = true;
                     if (loadingDialog.isShowing()) {
                         loadingDialog.dismiss();
-
                         if (e == null) {
                             startActivity(new Intent(TeachentLoginActivity.this, TeachentMainActivity.class));
                             TeachentLoginActivity.this.finish();
                         }else if (e.getMessage().contains("203")){
                             Toast.makeText(TeachentLoginActivity.this,"登录或失败，请检查Email和密码是否正确填写！",Toast.LENGTH_LONG).show();
-
                         }
                     }
                 }
             });
-
-
     }
 
 
@@ -251,7 +250,6 @@ public class TeachentLoginActivity extends AppCompatActivity {
             AVUser.logInInBackground(email, password, new LogInCallback<AVUser>() {
                 @Override
                 public void done(AVUser avUser, AVException e) {
-
                     if (e == null) {
                         CommonData.hasLogin = true;
                         if (loadingDialog.isShowing()) {
@@ -272,7 +270,6 @@ public class TeachentLoginActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     private boolean isEmailValid(String email) {

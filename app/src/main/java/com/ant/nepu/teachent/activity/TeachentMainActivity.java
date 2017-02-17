@@ -114,7 +114,6 @@ public class TeachentMainActivity extends AppCompatActivity
         CommonData.stateACheckIn = 0;
         CommonData.stateBCheckIn = 0;
         goCheckIn();
-        //预加载用户数据
 
     }
 
